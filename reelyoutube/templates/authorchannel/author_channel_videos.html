@@ -1,0 +1,104 @@
+{% extends 'authorchannel/author_channel.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block authorchannel %}
+
+
+<style>
+    .channel-inner .posts .post-inner .post .post-img
+    {
+        position: relative;
+    }
+    .channel-inner .posts .post-inner .post .post-img label
+    {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        font-size: 11px;
+        padding: 3px 5px;
+    }
+</style>
+
+
+<div class="buttons">
+    <button>
+        <a href="{% url 'author_channel' channel.channelslug %}">
+            HOME 
+        </a>
+    </button>
+    <button class="active">
+        <a href="{% url 'author_channel_videos' channel.channelslug %}">
+            Videos
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'author_channel_playlists' channel.channelslug %}">
+            playlists
+        </a>
+    </button>
+    <button>
+        <a href="#">
+            community
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'author_channel_channels' channel.channelslug %}">
+            channels
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'author_channel_about' channel.channelslug %}">
+            about
+        </a>
+    </button>
+</div>
+<div class="channel-inner">
+    <div class="posts">
+        <p>Uploads</p>
+        <div class="post-inner">
+            {% if author_videos.count > 0 and author_videos.count < 5 %}
+                {% for uservideo in author_videos %}
+                    <div class="post">
+                        <a href="{% url 'watch' uservideo.id %}">
+                            <div class="post-img">
+                                <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{uservideo.image.url}}">
+                                <label>{{uservideo.duration}}</label>
+                            </div>
+                            <div class="post-detail">
+                                <h3>{{uservideo.title}}</h3>
+                                <a href="{% url 'author_channel' uservideo.author.channeluser.channelname %}">{{uservideo.author.channeluser.channelname}}</a>
+                                <span><span id="views">{{uservideo.views|format_views_as_K}} views</span> &bull; <span>{{uservideo.published|time_ago}}</span></span>
+                            </div>
+                        </a>
+                    </div>    
+                {% endfor %}
+                <div class="post"></div>
+                <div class="post"></div>
+                <div class="post"></div>
+                <div class="post"></div>
+                <div class="post"></div>
+            {% else %}
+                {% for uservideo in author_videos %}
+                    <div class="post">
+                        <a href="{% url 'watch' uservideo.id %}">
+                            <div class="post-img">
+                                <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{uservideo.image.url}}">
+                                <label>{{uservideo.duration}}</label>
+                            </div>
+                            <div class="post-detail">
+                                <h3>{{uservideo.title}}</h3>
+                                <a href="{% url 'author_channel' uservideo.author.channeluser.channelname %}">{{uservideo.author.channeluser.channelname}}</a>
+                                <span><span id="views">{{uservideo.views|format_views_as_K}} views</span> &bull; <span>{{uservideo.published|time_ago}}</span></span>
+                            </div>
+                        </a>
+                    </div>    
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

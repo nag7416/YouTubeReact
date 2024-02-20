@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{% include 'sidebar.html' %}
+
+<div class="main-scroll">
+    <div class="inner">
+        {% for notification in notifications %}
+            {% if notification.notification_type == 1 %}
+                {{notification.from_user}} liked your {{notification.post.title}} 
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

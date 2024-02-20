@@ -1,0 +1,147 @@
+{% extends 'authorchannel/author_channel.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block authorchannel %}
+<style>
+    .channel-inner .posts .post-inner .post .post-img
+    {
+        display: flex;
+        align-items: center;
+    }
+    .channel-inner .posts .post-inner .post .post-img a 
+    {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .post .post-img
+    {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .post .post-img img 
+    {
+        height: 100%;
+    }
+    .post .post-img .playcount
+    {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 92px;
+        background: rgba(0,0,0,0.8);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    .post .post-img .playcount label 
+    {
+        font-size: 14px;
+    }
+    .post .post-img .playcount svg 
+    {
+        fill: white;
+        width: 1.5em;
+        height: 1.5em;
+    }
+    .post .post-detail label 
+    {
+        font-size: 12px;
+        background: lightgray;
+        padding: 3px 6px;
+        border-radius: 3px;
+    }
+</style>
+
+<div class="buttons">
+    <button>
+        <a href="{% url 'author_channel' channel.channelslug %}">
+            HOME 
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'author_channel_videos' channel.channelslug %}">
+            Videos
+        </a>
+    </button>
+    <button class="active">
+        <a href="{% url 'author_channel_playlists' channel.channelslug %}">
+            playlists
+        </a>
+    </button>
+    <button>
+        <a href="#">
+            community
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'author_channel_channels' channel.channelslug %}">
+            channels
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'author_channel_about' channel.channelslug %}">
+            about
+        </a>
+    </button>
+</div>
+<div class="channel-inner">
+    <div class="posts">
+        <p>Created playlists</p>
+        <div class="post-inner">
+            {% if playlists.count > 0 and playlists.count < 5 %}
+                {% for play in playlists %}
+                    <div class="post">
+                        <div class="post-img">
+                            <a href="#">
+                                <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{play.playlist_videos.first.image.url}}">
+                                <div class="playcount">
+                                    <label>{{play.playlist_videos.all.count}}</label>
+                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M22,7H2v1h20V7z M13,12H2v-1h11V12z M13,16H2v-1h11V16z M15,19v-8l7,4L15,19z" class="style-scope yt-icon"></path></g></svg>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-detail">
+                            <h3 style="margin: 5px 0;">{{play.playlist_name}}</h3>
+                            <span>Updated today</span>
+                            <label>Private</label>
+                            <a href="#">View full playlist</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="post"></div>
+                <div class="post"></div>
+                <div class="post"></div>
+                <div class="post"></div>
+                <div class="post"></div>
+            {% else %}
+                {% for play in playlists %}
+                    <div class="post">
+                        <div class="post-img">
+                            <a href="#">
+                                <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{play.playlist_videos.first.image.url}}">
+                                <div class="playcount">
+                                    <label>{{play.playlist_videos.all.count}}</label>
+                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M22,7H2v1h20V7z M13,12H2v-1h11V12z M13,16H2v-1h11V16z M15,19v-8l7,4L15,19z" class="style-scope yt-icon"></path></g></svg>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="post-detail">
+                            <h3>{{play.playlist_name}}</h3>
+                            <span>Updated today</span>
+                            <label>Private</label>
+                            <a href="#">View full playlist</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

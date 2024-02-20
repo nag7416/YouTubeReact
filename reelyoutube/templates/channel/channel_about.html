@@ -1,0 +1,74 @@
+{% extends 'channel/channel.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block channel %}
+<div class="buttons">
+    <button>
+        <a href="{% url 'channel' request.user.channeluser.id %}">
+            HOME
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'channel_videos' request.user.channeluser.id %}">
+            Videos
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'channel_playlists' request.user.channeluser.id %}">
+            playlists
+        </a>
+    </button>
+    <button>
+        <a href="#">
+            community
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'channel_channels' request.user.channeluser.id %}">
+            channels
+        </a>
+    </button>
+    <button class="active">
+        <a href="{% url 'channel_about' request.user.channeluser.id %}">
+            about
+        </a>
+    </button>
+</div>
+<div class="channel-inner">
+    <div class="aboutdesc">
+        <div class="left">
+            <div class="descript">
+                <label>Description</label>
+                <p>{{request.user.channeluser.channeldescription | safe | linebreaks}}</p>
+            </div>
+            {% if request.user.channeluser.facebook_url or request.user.channeluser.instagram_url or request.user.channeluser.twitter_url %}
+                <div class="links">
+                    <label>Links</label>
+                    <div class="anchors">
+                        {% if request.user.channeluser.facebook_url %}
+                            <a href="{{request.user.channeluser.facebook_url}}">Facebook</a>
+                        {% endif %}
+                        {% if request.user.channeluser.twitter_url %}
+                            <a href="{{request.user.channeluser.twitter_url}}">Twitter</a>
+                        {% endif %}
+                        {% if request.user.channeluser.instagram_url %}
+                            <a href="{{request.user.channeluser.instagram_url}}">Instagram</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="right">
+            <div class="stats">
+                <label>Stats</label>
+                <div class="line"></div>
+                <span>Joined {{request.user.channeluser.joined | date:"M d, Y"}}</span>
+                <div class="line"></div>
+                <span>{{count|format_views_as_comma}} views</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

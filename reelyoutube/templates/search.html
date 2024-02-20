@@ -1,0 +1,279 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %}<title>{{query}} - YouTube</title>{% endblock %}
+{% block content %}
+<style>
+
+
+
+    body.dark .explorecon .explore .rightdetail h3
+    {
+        color: white;
+    }
+    body.dark .explorecon .explore .rightdetail .author a
+    {
+        color: #aaa;
+    }
+    body.dark .explorecon .explore .rightdetail .author span
+    {
+        color: #aaa;
+    }
+    body.dark .explorecon .explore .rightdetail p
+    {
+        color: #aaa;
+    }
+    body.dark #noresults
+    {
+        color: white;
+    }
+
+
+
+
+
+
+
+
+
+    .author a 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .author a img 
+    {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        overflow: hidden;
+        min-height: 25px;
+        min-width: 25px;
+        margin-right: 8px;
+    }
+    .explorecon 
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .explorecon .explore 
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .explorecon .explores 
+    {
+        width: 100%;
+        max-width: 800px;
+        margin-bottom: 8px;
+    }
+    .explorecon form button
+    {
+        text-align: left;
+    }
+    .explorecon .explore .leftimg 
+    {
+        width: 250px;
+        min-width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .explorecon .explore .leftimg .innerimg 
+    {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .explorecon .explore .leftimg img 
+    {
+        width: 100%;
+    }
+    
+    .explorecon .explore .rightdetail 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding-left: 16px;
+    }
+    .explorecon .explore .rightdetail h3 
+    {
+        color: #030303;
+        font-size: 17px;
+        line-height: 26px;
+        font-weight: 400;
+        max-height: 3em;
+        overflow: hidden;
+    }
+    .explorecon .explore .rightdetail .author
+    {
+        display: flex;
+        align-items: center;
+        margin: 3px 0;
+    }
+    
+    .explorecon .explore .rightdetail .author a
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 30px;
+        overflow: hidden;
+        display: flex;
+        color: #606060;
+        text-decoration: none;
+    }
+    
+    .explorecon .explore .rightdetail .author span
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 18px;
+        overflow: hidden;
+        display: flex;
+        color: #606060;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+    .explorecon .explore .rightdetail p 
+    {
+        color: #606060;
+        padding-top: 5px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 3.3em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+</style>
+
+{% include 'sidebar.html' %}
+{% include 'hiddensidebar.html' %}
+
+
+<div class="main-scroll">
+    <div class="inner">
+        <div class="explorecon">
+            
+            {% if users %}
+                {% for user in users %}
+                    {% if request.user != user.channeluser%}
+                        <div class="explores" style="min-height: 150px;">
+                            <a href="{% url 'author_channel' user.channelslug %}" style="height: 100%;">
+                                <div class="explore" style="height: 100%; align-items: center;">
+                                    <div class="leftimg" style="height: 100%;">
+                                        <div class="innerimg">
+                                            <img src="{{user.channelimg.url}}">
+                                        </div>
+                                    </div>
+                                    <div class="rightdetail">
+                                        <h3>{{user.channelname}}</h3>
+                                        <div class="author">
+                                            <a href="#">@{{user.channelslug}}</a>
+                                            <span>&bull; {{user.subscribers.all|format_subscribers }} Subscribers</span>
+                                        </div>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="explores" style="min-height: 150px;">
+                            <a href="{% url 'channel' request.user.channeluser.id %}" style="height: 100%;">
+                                <div class="explore" style="height: 100%; align-items: center;">
+                                    <div class="leftimg" style="height: 100%;">
+                                        <div class="innerimg">
+                                            <img src="{{user.channelimg.url}}">
+                                        </div>
+                                    </div>
+                                    <div class="rightdetail">
+                                        <h3>{{user.channelname}}</h3>
+                                        <div class="author">
+                                            <a href="#">@{{user.channelslug}}</a>
+                                            <span>&bull; {{user.subscribers.all|format_subscribers }} Subscribers</span>
+                                        </div>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% for vid in vids %}
+                    <div class="explores">
+                        <a href="">
+                            <div class="explore">
+                                <div class="leftimg">
+                                    <img src="{{vid.image.url}}">
+                                </div>
+                                <div class="rightdetail">
+                                    <h3>{{vid.title}}</h3>
+                                    <div class="author">
+                                        <img src="{{vid.author.channeluser.channelimg.url}}">
+                                        <a href="#">
+                                            {{vid.author.channeluser.channelname}}
+                                        </a>
+                                        <span>&bull; {{vid.views|format_views_as_K}} views &bull; {{vid.published | naturaltime}}</span>
+                                    </div>
+                                    <p>{{vid.description | safe}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            {% if users %}
+            {% else %}
+                {% if videos %}
+                    {% for video in videos %}
+                        <div class="explores">
+                            <a href="{% url 'watch' video.id %}">
+                                <div class="explore">
+                                    <div class="leftimg">
+                                        <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}">
+                                    </div>
+                                    <div class="rightdetail">
+                                        <h3>{{video.title}}</h3>
+                                        <div class="author">
+                                            <a href="#">{{video.author.channeluser.channelname}}</a>
+                                            <span>&bull; {{video.views|format_views_as_K}} views &bull; {{video.published | naturaltime}}</span>
+                                        </div>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <label id="noresults">No Search Results for: <b>{{query}}</b></label>
+                {% endif %}
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+<script>
+{% comment %} function reload(){
+    setTimeout(function(){
+        window.location=window.location;
+    }, 1000)
+}
+reload(); {% endcomment %}
+</script>
+{% endblock %}

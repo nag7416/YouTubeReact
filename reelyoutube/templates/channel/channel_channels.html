@@ -1,0 +1,155 @@
+{% extends 'channel/channel.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block channel %}
+<style>
+    
+    .post .channelinner
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .post .channelinner .channeldetail 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .post .channelinner .channeldetail a 
+    {
+        color: #0f0f0f;
+        margin: 4px 0;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        max-height: 20px;
+        overflow: hidden;
+        text-decoration: none;
+    }
+    .post .channelinner .channeldetail label 
+    {
+        color: #606060;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 18px;
+        overflow: hidden;
+    }
+    .post .channelinner .channeldetail button
+    {
+        color: #0f0f0f;
+        background: rgba(0,0,0,0.05);
+        padding: 0 12px;
+        height: 30px;
+        font-size: 12px;
+        line-height: 32px;
+        border-radius: 16px;
+
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    .post .channelimg 
+    {
+        width: 103px;
+        height: 103px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+    
+</style>
+
+<div class="buttons">
+    <button>
+        <a href="{% url 'channel' request.user.channeluser.id %}">
+            HOME
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'channel_videos' request.user.channeluser.id %}">
+            Videos
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'channel_playlists' request.user.channeluser.id %}">
+            playlists
+        </a>
+    </button>
+    <button>
+        <a href="#">
+            community
+        </a>
+    </button>
+    <button class="active">
+        <a href="{% url 'channel_channels' request.user.channeluser.id %}">
+            channels
+        </a>
+    </button>
+    <button>
+        <a href="{% url 'channel_about' request.user.channeluser.id %}">
+            about
+        </a>
+    </button>
+</div>
+<div class="channel-inner">
+    <div class="posts">
+        <p>Subscriptions</p>
+        <div class="post-inner">
+            {% if channels %}
+                {% if channels.count > 0 and channels.count < 7 %}
+                    {% for channel in channels %}
+                        <div class="post">
+                            <div class="channelinner">
+                                <div class="channelimg">
+                                    <a href="{% url 'author_channel' channel.channelslug %}">
+                                        <img src="{% static 'images/author.png' %}" data-real-src="{{channel.channelimg.url}}" />
+                                    </a>
+                                </div>
+                                <div class="channeldetail">
+                                    <a href="#">{{channel.channelname}}</a>
+                                    <label>{{channel.subscribers.all.count}} subscribers</label>
+                                    {% if request.user in channel.subscribers.all %}
+                                        <button>Subscribed</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="post"></div>
+                    <div class="post"></div>
+                    <div class="post"></div>
+                    <div class="post"></div>
+                    <div class="post"></div>
+                    <div class="post"></div>
+                {% else %}
+                    {% for channel in channels %}
+                        <div class="post">
+                            <div class="channelinner">
+                                <div class="channelimg">
+                                    <a href="{% url 'author_channel' channel.channelslug %}">
+                                        <img src="{{channel.channelimg.url}}" />
+                                    </a>
+                                </div>
+                                <div class="channeldetail">
+                                    <a href="#">{{channel.channelname}}</a>
+                                    <label>{{channel.subscribers.all.count}} subscribers</label>
+                                    {% if request.user in channel.subscribers.all %}
+                                        <button>Subscribed</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

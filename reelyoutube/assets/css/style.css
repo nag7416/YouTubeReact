@@ -1,0 +1,1006 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+nav 
+{
+    width: 100%;
+    height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    border-bottom: .5px solid rgb(228, 227, 227);
+    z-index: 10;
+}
+nav .inner 
+{
+    width: 100%;
+    height: 100%;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav .inner .left 
+{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+nav .inner .left .menu
+{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+nav .inner .left .menu button
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+}
+nav .inner .left .menu button svg
+{
+    width: 24px;
+    height: 24px;
+}
+
+nav .inner .left .logo 
+{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 18px 14px 18px 16px;
+    flex: none;
+}
+nav .inner .left .logo svg
+{
+    width: 90px;
+    height: 20px;
+}
+nav .inner .left .logo a 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
+nav .inner .center 
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 0 1 728px;
+    min-width: 0px;
+}
+nav .inner .center .search 
+{
+    width: 85%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+nav .inner .center .search input  
+{
+    width: 100%;
+    height: 100%;
+    border: none;
+    border: .5px solid lightgray;
+    border-right: none;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    font-size: 16px;
+    font-weight: 400;
+}
+nav .inner .center .search input:focus
+{
+    box-shadow: inset 0px 0px 2px dodgerblue,
+                inset 0 0 2px dodgerblue;
+}
+nav .inner .center .search #search
+{
+    width: 64px;
+    min-width: 64px;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: .5px solid lightgray;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+nav .inner .center .search #search svg 
+{
+    width: 24px;
+    height: 24px;
+}
+nav .inner .center #mic
+{
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    cursor: pointer;
+}
+nav .inner .center #mic svg 
+{
+    width: 24px;
+    height: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nav .inner .right 
+{
+    display: flex;
+    align-items: center;
+}
+nav .inner .right .links 
+{
+
+}
+nav .inner .right .links ul 
+{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+nav .inner .right .links ul li 
+{
+    position: relative;
+}
+nav .inner .right .links ul li .link 
+{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+}
+
+nav .inner .right .links ul li .link button
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: none;
+
+}
+nav .inner .right .links ul li .link button a 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+nav .inner .right .links ul li .link button a svg 
+{
+    width: 24px;
+    height: 24px;
+}
+nav .inner .right .links ul li .link button a img 
+{
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+
+nav .inner .right .links ul li .profilecard
+{
+    position: absolute;
+    background-color: white;
+    right: 40px;
+    top: 5px;
+    border-radius: 3px;
+    width: 300px;
+    height: 708px;
+    z-index: 1000;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    visibility: hidden;
+    opacity: 0;
+}
+.profilecard::-webkit-scrollbar
+{
+    width: 0;
+}
+nav .inner .right .links ul li .profilecard.active 
+{
+    visibility: visible;
+    opacity: 1;
+}
+.profilecard .inner
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+}
+.profilecard .inner .name 
+{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    border-bottom: .5px solid rgb(224, 223, 223);
+    padding: 20px 10px;
+}
+.profilecard .inner .name .left
+{
+    min-width: 55px;
+}
+.profilecard .inner .name .left .authorimg 
+{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.profilecard .inner .name .left .authorimg img 
+{
+    width: 100%;
+}
+.profilecard .inner .name .right 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.profilecard .inner .name .right h3 
+{
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    height: 23px;
+    overflow: hidden;
+}
+.profilecard .inner .name .right label 
+{
+    font-size: 14px;
+    font-weight: 400;
+    color: dodgerblue;
+}
+
+
+.profilecard .options
+{
+    width: 100%;
+    background: white;
+    height: calc(100% - 75px);
+    overflow-y: scroll;
+}
+.profilecard .options::-webkit-scrollbar
+{
+    width: 0;
+}
+
+
+.profilecard .options .option 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px 0;
+    border-bottom: .5px solid rgb(224, 223, 223);
+}
+.profilecard .options .option ul 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.profilecard .options .option ul li 
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.profilecard .options .option ul li button
+{
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+}
+.profilecard .options .option ul li button a 
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+.profilecard .options .option ul li button a label 
+{
+    pointer-events: none;
+}
+.profilecard .options .option ul li button a svg 
+{
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+.profilecard .options .option ul li button a:hover
+{
+    background: whitesmoke;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.main 
+{
+    width: 100%;
+    /* background: red; */
+    padding-top: 56px;
+    height: 100vh;
+
+    display: flex;
+    align-items: flex-start;
+}
+.main .side 
+{
+    width: 72px;
+    min-width: 72px;
+    height: 100%;
+    background: white;
+    display: none;
+}
+.main .side .buttons ul 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+}
+.main .side .buttons ul li 
+{
+    width: 100%;
+    height: 100%;
+}
+.main .side .buttons ul li .but 
+{
+    height: 74px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main .side .buttons ul li .but button
+{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+}
+.main .side .buttons ul li .but button a 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+.main .side .buttons ul li .but button a svg 
+{
+    width: 24px;
+    height: 24px;
+}
+.main .side .buttons ul li .but button a label 
+{
+    font-size: 10px;
+    color: black;
+}
+
+
+
+
+.main .sidebar 
+{
+    width: 240px;
+    min-width: 240px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: white;
+    overflow-y: scroll;
+}
+.main .sidebar::-webkit-scrollbar
+{
+    width: 0px;
+}
+.main .sidebar::-webkit-scrollbar-thumb
+{
+    background: lightgray;
+}
+.main .sidebar::-webkit-scrollbar-track
+{
+    width: 10px;
+}
+.main .sidebar .linkscon 
+{
+    width: 100%;
+}
+.main .sidebar .linkscon .links
+{
+    width: 100%;
+    border-bottom: .5px solid lightgray;
+    padding: 10px 0;
+}
+.main .sidebar .linkscon .links p 
+{
+    padding: 0 24px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #212121;
+}
+.main .sidebar .linkscon .links ul 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.main .sidebar .linkscon .links ul li 
+{
+    width: 100%;
+}
+.main .sidebar .linkscon .links ul li .link 
+{
+    height: 40px;
+    width: 100%;
+}
+.main .sidebar .linkscon .links ul li .link button
+{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+}
+.main .sidebar .linkscon .links ul li .link button:hover 
+{
+    background: whitesmoke;
+}
+.main .sidebar .linkscon .links ul li .link button a 
+{
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    text-decoration: none;
+}
+.main .sidebar .linkscon .links ul li .link button a svg 
+{
+    width: 24px;
+    height: 24px;
+    margin-right: 24px;
+}
+.main .sidebar .linkscon .links ul li .link button a span 
+{
+    color: black;
+    font-weight: 400;
+}
+.main .sidebar .linkscon .links ul li.active .link button a span 
+{
+    font-weight: 500;
+}
+.main .sidebar .linkscon .links ul li.active .link button
+{
+    background: rgb(224, 223, 223);
+}
+
+
+
+
+
+.main .main-scroll
+{
+    height: 100%;
+    background: whitesmoke;
+    width: calc(100% - 240px);
+    overflow-y: scroll;
+}
+.main-scroll::-webkit-scrollbar
+{
+    width: 0;
+}
+.main .main-scroll .inner 
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-rows: auto;
+    grid-column-gap: 20px;
+    grid-row-gap: 25px;
+    padding: 20px;
+}
+
+.main .main-scroll form 
+{
+    cursor: pointer;
+
+}
+.main .main-scroll form button
+{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.main .main-scroll form button .video .video-right
+{
+    text-align: left;
+}
+
+
+
+.main .main-scroll .inner .video
+{
+    width: 100%;
+}
+.main .main-scroll .inner .video img 
+{
+    width: 100%;
+}
+
+
+.main-scroll .video .video-img 
+{
+    position: relative;
+}
+.main-scroll .video .video-img span 
+{
+    position: absolute;
+    bottom: 12px;
+    right: 8px;
+    background: rgba(0,0,0,0.9);
+    color: white;
+    font-size: 12px;
+    padding: 3px;
+}
+
+
+
+
+
+
+.video .video-detail
+{
+    display: flex;
+    align-items: flex-start;
+}
+.video .video-detail .video-left
+{
+    margin-top: 8px;
+    margin-right: 12px;
+}
+.video .video-detail .video-left .video-author-img 
+{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.video .video-detail .video-right h3
+{
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    max-height: 40px;
+    overflow: hidden;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+.video .video-detail .video-right .channel
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.video .video-detail .video-right .channel a
+{
+    width: auto;
+    color: #606060;
+    text-decoration: none;
+    font-size: 13px;
+    margin-right: 2px;
+}
+.video .video-detail .video-right .channel svg 
+{
+    width: .8em;
+    height: .8em;
+    fill: #606060;
+}
+.video .video-detail .video-right span 
+{
+    font-size: 13px;
+    color: #606060;
+}
+.video .video-detail .video-right .views 
+{
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+.video .video-detail .video-right .views label 
+{
+    width: 3px;
+    height: 3px;
+    background: #606060;
+    margin: 0 5px;
+    border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .overlay 
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000000000000;
+    width: 100%;
+    height: 100vh;
+    background: transparent;
+    display: none;
+}
+.overlay.active
+{
+    display: block;
+} */
+
+
+.hiddensidebar
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background: white;
+    z-index: 1000000;
+    transform: translateX(-250px);
+    transition: .3s;
+}
+.hiddensidebar.active
+{
+    transform: translateX(0px);
+    transition: .3s;
+}
+#closebtn
+{
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 0;
+    border: none;
+    outline: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0; 
+    cursor: pointer;
+    display: none;
+}
+#closebtn.active 
+{
+    display: block;
+}
+
+
+
+
+.hiddensidebar .header 
+{
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    /* border-bottom: .5px solid rgb(228, 227, 227); */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+}
+.hiddensidebar .header .menu
+{
+    width: 40px;
+    height: 40px;
+}
+.hiddensidebar .header .menu button
+{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.hiddensidebar .header .menu button svg 
+{
+    width: 24px;
+    height: 24px;
+}
+.hiddensidebar #logo
+{
+    height: 100%;
+    border: none;
+    background: none;
+    padding: 18px 14px 18px 16px;
+}
+.hiddensidebar #logo svg 
+{
+    width: 90px;
+    height: 20px;
+}
+
+
+
+
+
+
+
+.hiddensidebar .linkscon 
+{
+    width: 100%;
+    padding-top: 56px;
+    height: 100vh;
+    background: white;
+    overflow-y: scroll;
+}
+.hiddensidebar .linkscon::-webkit-scrollbar
+{
+    width: 0;
+}
+.hiddensidebar .linkscon .links
+{
+    width: 100%;
+    border-bottom: .5px solid lightgray;
+    padding: 10px 0;
+}
+.hiddensidebar .linkscon .links p 
+{
+    padding: 0 24px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #212121;
+}
+.hiddensidebar .linkscon .links ul 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.hiddensidebar .linkscon .links ul li 
+{
+    width: 100%;
+}
+.hiddensidebar .linkscon .links ul li .link 
+{
+    height: 40px;
+    width: 100%;
+}
+.hiddensidebar .linkscon .links ul li .link button
+{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+}
+.hiddensidebar .linkscon .links ul li .link button:hover 
+{
+    background: whitesmoke;
+}
+.hiddensidebar .linkscon .links ul li .link button a 
+{
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    text-decoration: none;
+}
+.hiddensidebar .linkscon .links ul li .link button a svg 
+{
+    width: 24px;
+    height: 24px;
+    margin-right: 24px;
+}
+.hiddensidebar .linkscon .links ul li .link button a span 
+{
+    color: black;
+    font-weight: 400;
+}
+.hiddensidebar .linkscon .links ul li.active .link button a span 
+{
+    font-weight: 500;
+}
+.hiddensidebar .linkscon .links ul li.active .link button
+{
+    background: rgb(224, 223, 223);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1312px){
+    .main .sidebar
+    {
+        display: none;
+    }
+    .main .side
+    {
+        display: block;
+    }
+    .main .main-scroll
+    {
+        width: calc(100% - 72px);
+    }
+    nav .inner .left .menu
+    {
+        display: flex;
+    }
+    nav .inner .left .men 
+    {
+        display: none;
+    }
+}
+@media (max-width: 617px){
+    .main .sidebar
+    {
+        display: none;
+    }
+    .main .side 
+    {
+        display: none;
+    }
+    .main .main-scroll
+    {
+        width: 100%;
+    }
+}

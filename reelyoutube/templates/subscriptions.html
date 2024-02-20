@@ -1,0 +1,236 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+{% block content %}
+{% block title %}<title>Subscriptions - YouTube</title>{% endblock %}
+<style>
+
+
+    body.dark .subcon h2 
+    {
+        color: white;
+    }
+    body.dark .subpost h4
+    {
+        color: #f1f1f1;
+    }
+    body.dark .subpost a
+    {
+        color: #aaa;
+    }
+    body.dark .subpost span
+    {
+        color: #aaa;
+    }
+    body.dark .subcon span label
+    {
+        color: #aaa;
+    }
+
+    .subcon span label
+    {
+        font-size: 12px; 
+        color: #606060;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    .subpost .subimg
+    {
+        position: relative;
+    }
+    .subpost .subimg span 
+    {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0,0,0,0.9);
+        color: white;
+        padding: 1px 3px;
+    }
+    .subcon 
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .subcon label 
+    {
+        text-align: left;
+        width: 100%;
+        max-width: 1084px;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 500;
+        max-height: 22px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+    .subcon .subinner 
+    {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+        grid-gap: 10px;
+        grid-row-gap: 15px;
+        grid-column-gap: 20px;
+    }
+    .subcon .subinner .subpost .subimg img
+    {
+        width: 100%;
+    }
+    .subpost h4 
+    {
+        text-align: left;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        max-height: 40px;
+        overflow: hidden;
+        color: #030303;
+        margin: 3px 0 3px;
+    }
+    .subpost a 
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        color: #606060;
+        text-decoration: none;
+    }
+    .subpost span 
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 36px;
+        overflow: hidden;
+        color: #606060;
+    }
+    .subcon .subinner .subpost .subdetail 
+    {
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        margin: 10px 0;
+    }
+    
+    .subpost .subdetail 
+    {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: row;
+    }
+    .subpost .subdetail .subdetailleft .authorimg 
+    {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 10px;
+    }
+    .subpost .subdetail .subdetailleft .authorimg img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    .subcon .subinner .subpost .subdetail .subdetailright
+    {
+        
+    }
+</style>
+{% include 'sidebar.html' %}
+{% include 'hiddensidebar.html' %}
+
+<div class="main-scroll">
+    
+    <div class="inner">
+        
+        <div class="subcon">
+            <h2 style="margin-bottom: 15px; line-height: 30px; font-size: 24px; font-weight: 400; width: 100%;">Latest</h2>
+            <div class="subinner">
+                
+                {% if vids %}
+                    {% if vids.count > 0 and vids.count < 5 %}
+                        {% for video in vids %}
+                            <div class="subpost">
+                                <a href="{% url 'watch' video.id %}">
+                                    <div class="subimg">
+                                        <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}">
+                                    </div>
+                                    <div class="subdetail">
+                                        <div class="subdetailleft">
+                                            <div class="authorimg">
+                                                <img src="{% static 'images/author.png' %}" data-real-src="{{video.author.channeluser.channelimg.url}}">
+                                            </div>
+                                        </div>
+                                        <div class"subdetailright" style="display: flex; flex-direction: column; align-items: flex-start;">
+                                            <h4>{{video.title}}</h4>
+                                            <a href="{% url 'author_channel' video.author.channeluser.channelslug %}">{{video.author.channeluser.channelname}}</a>
+                                            <span>
+                                                <label>{{video.views|format_views_as_K}}</label> views &bull; 
+                                                <label>{{video.published|time_ago}}</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+                        <div class="subpost"></div>
+                        <div class="subpost"></div>
+                        <div class="subpost"></div>
+                        <div class="subpost"></div>
+                        <div class="subpost"></div>
+                        <div class="subpost"></div>
+                    {% else %}
+                        {% for video in vids %}
+                            <div class="subpost">
+                                <a href="{% url 'watch' video.id %}">
+                                    <div class="subimg">
+                                        <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}">
+                                        <span id="videourl">
+                                            <p>{{video.duration}}</p>
+                                        </span>
+                                    </div>
+                                    <div class="subdetail">
+                                        <div class="subdetailleft">
+                                            <div class="authorimg">
+                                                <img src="{% static 'images/author.png' %}" data-real-src="{{video.author.channeluser.channelimg.url}}">
+                                            </div>
+                                        </div>
+                                        <div class"subdetailright" style="display: flex; flex-direction: column; align-items: flex-start;">
+                                            <h4>{{video.title}}</h4>
+                                            <a href="{% url 'author_channel' video.author.channeluser.channelslug %}">{{video.author.channeluser.channelname}}</a>
+                                            <span>
+                                                <label>{{video.views|format_views_as_K}}</label> views &bull; 
+                                                <label>{{video.published|time_ago}}</label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>   
+                        {% endfor %}
+                    {% endif %}
+                {% else %}
+                    <p>No Subscriptions found</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

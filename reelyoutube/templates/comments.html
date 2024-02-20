@@ -1,0 +1,1758 @@
+
+{% load humanize %}
+{% block title %}<title>{{video.title}} - YouTube</title>{% endblock %}
+{% block content %}
+{% load custom_filters %}
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+
+
+    *
+    {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+    }
+    .main
+    {
+        width: 100%;
+    }
+    .main .main-scroll 
+    {
+        width: 100%;
+    }
+    .main .main-scroll .inner 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+        padding-top: 20px;
+    }
+    @media (max-width: 1312px){
+        .main .main-scroll 
+        {
+            min-width: 100%;
+        }
+    }
+    
+    .videocon 
+    {
+        width: 85%;
+        display: flex;
+        align-items: flex-start;
+        max-width: 1780px;
+    }
+    .videocon .left 
+    {
+        width: 70%;
+        background: ;
+    
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 20px;
+    }
+    .videocon .left .video-con 
+    {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    .videocon .left .video-con video
+    {
+        width: 100%;
+    }
+    
+    .videocon .left .title h3 
+    {
+        word-break: break-word;
+        font-size: 18px;
+        line-height: 30px;
+        font-weight: 400;
+        max-height: 54px;
+        overflow: hidden;
+        margin-top: 8px;
+    }
+    .videocon .left .views 
+    {
+        margin-top: 5px;
+    }
+    .videocon .left .views span 
+    {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+    }
+    .videocon .left .desc 
+    {
+        width: 100%;
+        margin-top: 5px;
+        background: #f2f2f2;
+        padding: 8px;
+        border-radius: 4px;
+    }
+    .videocon .left .desc p
+    {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        color: #0f0f0f;
+        height: 45px;
+        background: ;
+        overflow: hidden;
+    }
+    .videocon .left .desc span 
+    {
+        font-weight: 500;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+    .videocon .left .desc p.active 
+    {
+        height: auto;
+    }
+    .videocon .left .desc button
+    {
+        background: none;
+        border: none;
+        padding: 8px 0px 8px 0px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    
+    
+    .videocon .likecon 
+    {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 2px 0;
+    }
+    .videocon .likecon .con 
+    {
+        display: flex;
+        align-items: center;
+        margin-right: 3px;
+        cursor: pointer;
+    }
+    .videocon .likecon .con svg 
+    {
+        width: 1.4em;
+        height: 1.4em;
+    }
+    .videocon .likecon .con label 
+    {
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 2px;
+    }
+    
+    
+    
+    
+    .videocon #right 
+    {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .videocon #right .right-inner
+    {
+        width: 95%;
+    }
+    
+    .videocon #right .right-inner .videos 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .videocon #right .right-inner .videos .video 
+    {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 5px;
+    }
+    .right-inner .videos .video .video-img 
+    {
+        width: 168px;
+        min-width: 168px;
+    }
+    .right-inner .videos .video .video-img img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    .right-inner .videos .video .video-detail
+    {
+        margin-left: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    .right-inner .videos .video .video-detail h4 
+    {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        max-height: 40px;
+        overflow: hidden;
+    }
+    .right-inner .videos .video .video-detail a 
+    {
+        max-height: 40px;
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        cursor: pointer;
+        display: block;
+        word-break: break-word;
+        color: gray;
+        text-decoration: none;
+    }
+    .right-inner .videos .video .video-detail span 
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        color: gray;
+        max-height: 20px;
+        overflow: hidden;
+    }
+    
+    
+    
+    
+    .subcon 
+    {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 10px 0;
+        border-radius: 3px;
+    }
+    .subcon .subleft 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .subcon .subleft .subimg 
+    {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .subcon .subleft .subdetail 
+    {
+        margin-left: 10px;
+        max-height: 40px;
+        overflow: hidden;
+    }
+    .subcon .subleft .subdetail h5 
+    {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+    }
+    .subcon .subleft .subdetail label 
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 18px;
+        overflow: hidden;
+    }
+    .subcon .subleft .subimg img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    .subcon .subright 
+    {
+        margin-left: 30px;
+    }
+    .subcon .subright .subbutton 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .subcon .subright button
+    {
+        padding: 10px 15px;
+        background: #000;
+        margin: auto 2px;
+        white-space: nowrap;
+        font-size: 14px;
+        border: none;
+        font-weight: 500;
+        letter-spacing: .5px;
+        text-transform: capitalize;
+        display: flex;
+        flex-direction: row;
+        border-radius: 18px;
+        color: white;
+        cursor: pointer;
+    }
+    .subcon .subright #subscribed
+    {
+        background: lightgray;
+        color: gray;
+    }
+    
+    
+    .usercomment
+    {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+    .usercomment .userimg 
+    {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .usercomment .userimg img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    .usercomment .userinput 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+    .usercomment .userinput form 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .usercomment .userinput form button
+    {
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: .5px;
+        border-radius: 20px;
+        background: #065fd4;
+        color: white;
+        padding: 9px 10px;
+        margin-left: 10px;
+    }
+    .usercomment .userinput input
+    {
+        width: 100%;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid lightgray;
+        height: 30px;
+        background: transparent;
+    }
+    
+    
+    
+    .publiccomments
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        margin-top: 20px;
+    }
+    .publiccomments .publiccomment
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        height: auto;
+    }
+    .publiccomments .publiccomment .publicimage
+    {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        margin-right: 10px;
+    }
+    .publiccomment .publicimg
+    {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .publiccomment .publicimg img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    
+    
+    
+    
+    .publiccomment .publicdetail 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .publicdetail .head a
+    {
+        font-size: 13px;
+        margin-right: 4px;
+        color: #0f0f0f;
+        font-weight: 500;
+        line-height: 18px;
+        text-decoration: none;
+        margin-bottom: 2px;
+    }
+    .publicdetail .head span 
+    {
+        color: #606060;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+    .publicdetail p 
+    {
+        color: #0f0f0f;
+        line-height: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        overflow-wrap: anywhere;
+        margin-top: 4px;
+    }
+    
+
+    .videocon .bothcon 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    
+    
+    #id_comment_user
+    {
+        display: none;
+    }
+    #id_comment_id 
+    {
+        display: none;
+    }
+    #id_comment_video
+    {
+        display: none;
+    }
+    
+    
+    @media (max-width: 1016px){
+        .videocon
+        {
+            width: 94%;
+        }
+        .videocon .left 
+        {
+            width: 100%;
+        }
+        .videocon #right 
+        {
+            width: 100%;
+        }
+        .videocon
+        {
+            display: flex;
+            flex-direction: column; 
+        }
+        .videocon #right .right-inner
+        {
+            width: 100%;
+        }
+    }
+
+
+    @media (max-width: 1190px){
+        .videocon
+        {
+            width: 95%;
+        }
+    }
+
+    @media (max-width: 1570px){
+        .videocon .bothcon 
+        {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-start;
+        }
+        .videocon .likecon
+        {
+            justify-content: flex-start;
+        }
+    }
+
+
+    .likescon 
+    {
+        width: 100%;
+        height: 36px;
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+    }
+    .likescon .like 
+    {
+        height: 25px;
+        margin-right: 10px;
+    }
+    .likescon .like button
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        outline: none;
+        background: none;
+        cursor: pointer;
+    }
+    .likescon .like button svg 
+    {
+        width: 1.7em;
+        height: 1.7em;
+    }
+    .likescon .like button label 
+    {
+        font-size: 13px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 3px;
+    }
+    .likescon .reply button
+    {
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .likescon .authorlike 
+    {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+    }
+    .likescon .authorlike .img 
+    {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        position: relative;
+    }
+    .likescon .authorlike .img img 
+    {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+    .likescon .authorlike .img svg 
+    {
+        width: 12px;
+        height: 12px;
+        fill: crimson;
+        position: absolute;
+        right: -4px;
+        bottom: -5px;
+    }
+    .publiccomments .commentloader
+    {
+        width: 100%;
+        height: 70px;
+        background: ;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: center;
+        display: none;
+    }
+    .publiccomments .commentloader label 
+    {
+        width: 30px;
+        height: 30px;
+        border: 3px solid gray;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        border-top-color: transparent;
+    }
+    @keyframes spin 
+    {
+        0% { transform: rotate(0deg);}
+        100% {transform: rotate(360deg);}
+    }
+    #unlike 
+    {
+        margin-left: 25px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    
+    .video-con {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-inline: auto;
+    background-color: black;
+  }
+  
+  .video-con.theater,
+  .video-con.full-screen {
+    max-width: initial;
+    width: 100%;
+  }
+  
+  .video-con.theater {
+    max-height: 90vh;
+  }
+  
+  .video-con.full-screen {
+    max-height: 100vh;
+  }
+  
+  video {
+    width: 100%;
+  }
+  
+  .video-controls-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+  }
+  
+  .video-controls-container::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent);
+    width: 100%;
+    aspect-ratio: 6 / 1;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  .video-con:hover .video-controls-container,
+  .video-con:focus-within .video-controls-container,
+  .video-con.paused .video-controls-container {
+    opacity: 1;
+  }
+  
+  .video-controls-container .controls {
+    display: flex;
+    gap: .5rem;
+    padding: .25rem;
+    align-items: center;
+  }
+  
+  .video-controls-container .controls button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    opacity: .85;
+    transition: opacity 150ms ease-in-out;
+  }
+  
+  .video-controls-container .controls button:hover {
+    opacity: 1;
+  }
+  
+  .video-con.paused .pause-icon {
+    display: none;
+  }
+  
+  .video-con:not(.paused) .play-icon {
+    display: none;
+  }
+  
+  .video-con.theater .tall {
+    display: none;
+  }
+  
+  .video-con:not(.theater) .wide {
+    display: none;
+  }
+  
+  .video-con.full-screen .open {
+    display: none;
+  }
+  
+  .video-con:not(.full-screen) .close {
+    display: none;
+  }
+  
+  .volume-high-icon,
+  .volume-low-icon,
+  .volume-muted-icon {
+    display: none;
+  }
+  
+  .video-con[data-volume-level="high"] .volume-high-icon {
+    display: block;
+  }
+  
+  .video-con[data-volume-level="low"] .volume-low-icon {
+    display: block;
+  }
+  
+  .video-con[data-volume-level="muted"] .volume-muted-icon {
+    display: block;
+  }
+  
+  .volume-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .volume-slider {
+    width: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: width 150ms ease-in-out, transform 150ms ease-in-out;
+  }
+  
+  .volume-container:hover .volume-slider,
+  .volume-slider:focus-within {
+    width: 100px;
+    transform: scaleX(1);
+  }
+  
+  .duration-container {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    flex-grow: 1;
+  }
+  
+  .video-con.captions .captions-btn {
+    border-bottom: 3px solid red;
+  }
+  
+  .video-controls-container .controls button.wide-btn {
+    width: 50px;
+  }
+  
+  .timeline-container {
+    height: 7px;
+    margin-inline: .5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .timeline {
+    background-color: rgba(100, 100, 100, .5);
+    height: 3px;
+    width: 100%;
+    position: relative
+  }
+  
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% - var(--preview-position) * 100%);
+    background-color: rgb(150, 150, 150);
+    display: none;
+  }
+  
+  .timeline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% - var(--progress-position) * 100%);
+    background-color: red;
+  }
+  
+  .timeline .thumb-indicator {
+    --scale: 0;
+    position: absolute;
+    transform: translateX(-50%) scale(var(--scale));
+    height: 200%;
+    top: -50%;
+    left: calc(var(--progress-position) * 100%);
+    background-color: red;
+    border-radius: 50%;
+    transition: transform 150ms ease-in-out;
+    aspect-ratio: 1 / 1;
+  }
+  
+  .timeline .preview-img {
+    position: absolute;
+    height: 80px;
+    aspect-ratio: 16 / 9;
+    top: -1rem;
+    transform: translate(-50%, -100%);
+    left: calc(var(--preview-position) * 100%);
+    border-radius: .25rem;
+    border: 2px solid white;
+    display: none;
+  }
+  
+  .thumbnail-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+  }
+  
+  .video-con.scrubbing .thumbnail-img {
+    display: block;
+  }
+  
+  .video-con.scrubbing .preview-img,
+  .timeline-container:hover .preview-img {
+    display: block;
+  }
+  
+  .video-con.scrubbing .timeline::before,
+  .timeline-container:hover .timeline::before {
+    display: block;
+  }
+  
+  .video-con.scrubbing .thumb-indicator,
+  .timeline-container:hover .thumb-indicator {
+    --scale: 1;
+  }
+  
+  .video-con.scrubbing .timeline,
+  .timeline-container:hover .timeline {
+    height: 100%;
+  }
+
+
+
+    .likescon
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+    .likescon .liketop 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .likebottom
+    {
+        width: 100%;
+        height: auto;
+        display: none;
+        margin: 5px 0;
+    }
+    .likebottom.active 
+    {
+        display: block;
+    }
+
+    .likebottom form 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .likebottom form input
+    {
+        width: 100%;
+        height: 35px;
+        padding: 0 5px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #606060;
+        margin-top: 5px;
+    }
+    .likebottom form div 
+    {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .likebottom form div a 
+    {
+        padding: 5px 15px;
+        margin-left: 8px;
+        margin-top: 8px;
+    }
+    .likebottom form div button
+    {
+        padding: 5px 15px;
+        margin-left: 8px;
+        margin-top: 8px;
+    }
+    .likebottom form div button:last-child
+    {
+        background: dodgerblue;
+        color: white;
+        border-radius: 20px;
+    }
+
+
+    #commentdelete
+    {
+        position: relative;
+    }
+    #commentdelete .commentoptions
+    {
+        width: 80px;
+        position: absolute;
+        right: 20px;
+        bottom: 25px;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        display: none;
+    }
+    #commentdelete .commentoptions.active 
+    {
+        display: block;
+    }
+    #commentdelete .commentoptions a 
+    {
+        width: 100%;
+        padding: 3px 6px;
+    }
+    .desc span
+    {
+        cursor: pointer;
+    }
+
+
+
+
+
+
+</style>
+
+
+
+<div class="main-scroll" style="background: #ffffff;">
+    <div class="inner">
+        <div class="videocon">
+            <div class="left">
+                <div class="commentcount" style="margin-top: 20px;">
+                    <label><span>{{comments.count}}</span> Comments</label>
+                </div>
+                <div class="usercomment">
+                    <div class="userimg">
+                        <img src="{{request.user.channeluser.channelimg.url}}">
+                        {{commentform.comment_id}}
+                    </div>
+                    <div class="userinput">
+                        <form action="{% url 'watch' video.id %}" method="POST" id="commentform">
+                            {% csrf_token %}
+                            {{commentform.id}}
+                            {% comment %} {{commentform.comment_id}} {% endcomment %}
+                            {{commentform.comment_video}}
+                            {{commentform.comment_user}}
+                            {{commentform.comment_body}}
+                            {{commentform.commented_on}}
+                            {% comment %} <button type="submit">COMMENT</button> {% endcomment %}
+                        </form>
+                    </div>
+                </div>
+                <div class="publiccomments">
+                    <div class="commentloader">
+                        <label></label>
+                    </div>
+                    {% if comments %}
+                    {% comment %} <div class="jsoncomments">{{jsoncom}}</div> {% endcomment %}
+                        {% for comment in comments %}
+                            {% if comment.is_parent %}
+                                <div class="publiccomment">
+                                    <div class="publicimg">
+                                        <img src="{{comment.comment_user.channeluser.channelimg.url}}">
+                                    </div>
+                                    <div class="publicdetail">
+                                        <div class="head">
+                                            {% if video.author  == comment.comment_user %}
+                                                <a href="{% url 'channel' request.user.channeluser.id %}" style="background: rgba(0,0,0,0.6); color: white; padding: 2px 5px; border-radius: 20px;">{{comment.comment_user.channeluser.channelname}}</a>
+                                            {% else %}
+                                                <a href="{% url 'author_channel' comment.comment_user.channeluser.channelname %}">{{comment.comment_user.channeluser.channelname}}</a>
+                                            {% endif %}
+                                            <span id="timeago">{{comment.commented_on | date:"Y-m-d H:i:s"}}</span>
+                                        </div>
+                                        <p>{{comment.comment_body}}</p>
+                                        <div class="likescon" data-video="{{video.id}}" data-comment="{{comment.comment_id}}">
+                                            <div class="liketop">
+                                                <div class="like">
+                                                    {% if request.user in comment.comment_like.all %}
+                                                        <button onclick="unlikecomment(this)">
+                                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon"><path d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z" class="style-scope yt-icon"></path></g></svg>
+                                                            <label>{{comment.comment_like.all.count}}</label>
+                                                        </button>
+                                                    {% else %}
+                                                        <button onclick="likecomment(this)">
+                                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>
+                                                            <label>{{comment.comment_like.all.count}}</label>
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="reply">
+                                                    <button id="replybtn">Reply</button>
+                                                </div>
+                                                {% if comment.comment_liked %}
+                                                    <div class="authorlike">
+                                                        <div class="img">
+                                                            <img src="{{video.author.channeluser.channelimg.url}}" width="20px">
+                                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M16.5,2c-1.74,0-3.41,0.88-4.5,2.28C10.91,2.88,9.24,2,7.5,2C4.42,2,2,4.64,2,7.99c0,4.12,3.4,7.48,8.55,12.58L12,22 l1.45-1.44C18.6,15.47,22,12.11,22,7.99C22,4.64,19.58,2,16.5,2z" class="style-scope yt-icon"></path></g></svg>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="likebottom">
+                                                {% comment %} <form action="" method="POST" id="commentreplyform">
+                                                    {% csrf_token %}
+                                                    {{commentform.comment_id}}
+                                                    {{commentform.comment_user}}
+                                                    {{commentform.comment_video}}
+                                                    {{commentform.comment_body}}
+                                                    {{commentform.parent}}
+                                                    <div>
+                                                        <a id="cancel">Cancel</a>
+                                                        <button type="submit">Reply</button>
+                                                    </div>
+                                                </form> {% endcomment %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form id="commentdelete">
+                                        <button style="border: none; background: none; outline: none; cursor: pointer;">
+                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; width: 24px; height: 24px;"><g class="style-scope yt-icon"><path d="M12,16.5c0.83,0,1.5,0.67,1.5,1.5s-0.67,1.5-1.5,1.5s-1.5-0.67-1.5-1.5S11.17,16.5,12,16.5z M10.5,12 c0,0.83,0.67,1.5,1.5,1.5s1.5-0.67,1.5-1.5s-0.67-1.5-1.5-1.5S10.5,11.17,10.5,12z M10.5,6c0,0.83,0.67,1.5,1.5,1.5 s1.5-0.67,1.5-1.5S12.83,4.5,12,4.5S10.5,5.17,10.5,6z" class="style-scope yt-icon"></path></g></svg>
+                                        </button>
+                                        <div class="commentoptions">
+                                            {% if comment.comment_user != request.user %}
+                                            <a href="#">Report</a>
+                                            {% else %}
+                                            <a id="deletecommentbtn" onclick="deletecommentfun(this)">Delete</a>
+                                        {% endif %}
+                                        </div>
+                                    </form>
+                                </div>
+                                {% for child in comment.children %}
+                                    <div class="publiccomment" style="width: 100%; display: flex; align-items: flex-start; justify-content: flex-end;">
+                                        <div class="publicimage"></div>
+                                        <div class="publicimg" style="width: 24px; height: 24px; min-width: 24px;">
+                                            <img src="{{child.comment_user.channeluser.channelimg.url}}">
+                                        </div>
+                                        <div class="publicdetail" style="">
+                                            <div class="head">
+                                                {% if video.author  == child.comment_user %}
+                                                    <a href="{% url 'channel' request.user.channeluser.id %}" style="background: rgba(0,0,0,0.6); color: white; padding: 2px 5px; border-radius: 20px;">{{child.comment_user.channeluser.channelname}}</a>
+                                                {% else %}
+                                                    <a href="{% url 'author_channel' child.comment_user.channeluser.channelname %}">{{child.comment_user.channeluser.channelname}}</a>
+                                                {% endif %}
+                                                <span id="timeago">{{child.commented_on | date:"Y-m-d H:i:s"}}</span>
+                                            </div>
+                                            <p>{{child.comment_body}}</p>
+                                            {% comment %} <div class="likescon" data-video="{{video.id}}" data-comment="{{child.pk}}">
+                                                <div class="like">
+                                                    {% if request.user in comment.comment_like.all %}
+                                                        <button onclick="unlikecomment(this)">
+                                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon"><path d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z" class="style-scope yt-icon"></path></g></svg>
+                                                            <label>{{comment.comment_like.all.count}}</label>
+                                                        </button>
+                                                    {% else %}
+                                                        <button onclick="likecomment(this)">
+                                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>
+                                                            <label>{{comment.comment_like.all.count}}</label>
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="reply">
+                                                    <button>Reply</button>
+                                                </div>
+                                                {% if comment.comment_liked %}
+                                                    <div class="authorlike">
+                                                        <div class="img">
+                                                            <img src="{{video.author.channeluser.channelimg.url}}" width="20px">
+                                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M16.5,2c-1.74,0-3.41,0.88-4.5,2.28C10.91,2.88,9.24,2,7.5,2C4.42,2,2,4.64,2,7.99c0,4.12,3.4,7.48,8.55,12.58L12,22 l1.45-1.44C18.6,15.47,22,12.11,22,7.99C22,4.64,19.58,2,16.5,2z" class="style-scope yt-icon"></path></g></svg>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div> {% endcomment %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="{% static 'js/script1.js' %}"></script>
+<script type="text/javascript">
+    var descbutton = document.querySelector('.desc button');
+    var desc = document.querySelector('.desc p');
+    var descover = document.querySelector('.desc');
+    descover.addEventListener('click', function(){
+        descbutton.click();
+    })
+    descbutton.addEventListener('click', function(){
+        desc.classList.toggle('active');
+        if(descbutton.innerHTML == 'SHOW MORE'){
+            descbutton.innerHTML = 'SHOW LESS';
+        } else {
+            descbutton.innerHTML = 'SHOW MORE';
+        }
+    })    
+</script>
+<script>
+    var comment_user = document.getElementById('id_comment_user');
+    comment_user.value = "{{request.user.id}}";
+
+    var comment_video = document.getElementById('id_comment_video');
+    comment_video.value = "{{video.id}}";
+</script>
+
+<script>
+    var commentdeletes = document.querySelectorAll('#commentdelete');
+    if(commentdeletes){
+        for(let i=0; i<commentdeletes.length; i++){
+            commentdeletes[i].addEventListener('submit', function(e){
+                e.preventDefault();
+            })
+        }
+    }
+    
+{% comment %} var replybtn = document.querySelectorAll('#replybtn');
+var likebottom = document.querySelectorAll('.likebottom');
+var cancelbtn = document.querySelectorAll('#cancel');
+
+for(let i=0; i<replybtn.length; i++){
+    replybtn[i].addEventListener('click', function(){
+        likebottom[i].classList.toggle('active');
+        var value = this.parentElement.parentElement.parentElement.dataset.comment; 
+        document.getElementById('id_parent').value = value;
+    })
+    cancelbtn[i].addEventListener('click', function(){
+        likebottom[i].classList.remove('active');
+    })
+} {% endcomment %}
+
+var commentoptions = document.querySelectorAll('.commentoptions');
+var commentoptionsbtna = document.querySelectorAll('#commentdelete a');
+
+for(let i=0; i<commentoptionsbtna.length; i++){
+    commentoptionsbtna[i].addEventListener('click', function(){
+        commentoptions[i].classList.toggle('active');
+    })
+}
+
+var commentoptionsbtn = document.querySelectorAll('#commentdelete button');
+
+for(let i=0; i<commentoptionsbtn.length; i++){
+    commentoptionsbtn[i].addEventListener('click', function(){
+        commentoptions[i].classList.toggle('active');
+    })
+}
+
+
+function commentopt(element){
+    var elem = element.parentElement.querySelector('.commentoptions');
+    elem.classList.toggle('active');
+}
+
+
+
+</script>
+
+<script>
+    function watchsub(element){
+        let name = element.dataset.channel_id;
+        let id = element.dataset.video_id;
+
+        fetch(id+'/'+name +'/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                "X-CSRFToken": csrftoken,
+            }
+        })
+        .then((res) => {
+            var count = element.parentElement.parentElement.parentElement.querySelector('.subleft .subdetail label span');
+            var value = count.innerHTML;
+            value++;
+            count.innerHTML = value;
+            element.setAttribute('id', 'subscribed');
+            element.innerHTML = 'Subscribed';
+            element.insertAdjacentHTML('afterend', '<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M10,20h4c0,1.1-0.9,2-2,2S10,21.1,10,20z M20,17.35V19H4v-1.65l2-1.88v-5.15c0-2.92,1.56-5.22,4-5.98V3.96 c0-1.42,1.49-2.5,2.99-1.76C13.64,2.52,14,3.23,14,3.96l0,0.39c2.44,0.75,4,3.06,4,5.98v5.15L20,17.35z M19,17.77l-2-1.88v-5.47 c0-2.47-1.19-4.36-3.13-5.1c-1.26-0.53-2.64-0.5-3.84,0.03C8.15,6.11,7,7.99,7,10.42v5.47l-2,1.88V18h14V17.77z" class="style-scope yt-icon"></path></g></svg>');
+            element.setAttribute('onclick', 'watchunsub(this)');
+        })
+        .catch(error => {
+            if(error.status > 200){
+                throw(error);
+            }
+        })
+    }
+    function watchunsub(element){
+        let name = element.dataset.channel_id;
+        let id = element.dataset.video_id;
+
+            fetch(id+'/'+name+'/unsubscribe', {
+                method: 'POST',
+                //credentials: 'same-origin',
+                headers: {
+                    'Content-Type':'application/json',
+                    "X-CSRFToken": csrftoken,
+                }
+            })
+            .then((res) => {
+                var count = element.parentElement.parentElement.parentElement.querySelector('.subleft .subdetail label span');
+                var value = count.innerHTML;
+                value--;
+                count.innerHTML = value;
+                element.removeAttribute('id', 'subscribed');
+                element.innerHTML = 'Subscribe';
+                
+                element.setAttribute('onclick', 'watchsub(this)');
+            })
+            .catch(error => {
+                if(error.status > 200){
+                    throw(error);
+                }
+            })
+    }
+
+    function comment(){
+        var commentform = document.getElementById('commentform');
+        commentform.addEventListener('submit', function(e){
+            e.preventDefault();
+
+            var comment_video = document.getElementById("id_comment_video");
+            var comment_video_id = "{{video.id}}";
+            var comment_user = document.getElementById('id_comment_user');
+            var comment_body = document.getElementById('id_comment_body');
+            var comment_id = document.getElementById('id_comment_id');
+            var csrf = document.getElementsByName("csrfmiddlewaretoken");
+            
+            var channelimg = "{{request.user.channeluser.channelimg.url}}";
+            var channelname = "{{request.user.channeluser.channelname}}";
+            var url = commentform.getAttribute('action');
+            const fd = new FormData();
+            const date = new Date();
+            var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+
+            fd.append('comment_video', comment_video.value);
+            fd.append('comment_user', comment_user.value);
+            fd.append('comment_body', comment_body.value);
+            fd.append('comment_id', comment_id.value);
+            fd.append('csrfmiddlewaretoken', csrf[0].value);
+
+
+            
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    data: fd,
+                    datatype: 'json',
+                    success: function(res){
+                        var publiccomments = commentform.parentElement.parentElement.parentElement.querySelector('.publiccomments')
+                        var output;
+                        commentloader = document.querySelector('.publiccomments .commentloader');
+
+                        output = `
+                        <div class="publiccomment">
+                            <div class="publicimg">
+                                <img src="${channelimg}">
+                            </div>
+                            <div class="publicdetail">
+                                <div class="head">
+                                    <a href="#">${channelname}</a>
+                                    <span>${humanized_time_span(date.toLocaleString())}</span>
+                                </div>
+                                <p>${comment_body.value}</p>
+                                <div class="likescon" data-video="${comment_video_id}" data-comment="${comment_id.value}">
+                                    <div class="liketop">
+                                        <div class="like">
+                                            <button onclick="likecomment(this)">
+                                                <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>
+                                                <label>0</label>
+                                            </button>
+                                        </div>
+                                        <div class="reply">
+                                            <button id="replybtn" onclick="commentreplyshow(this)">Reply</button>
+                                        </div>
+                                    </div>
+                                    <div class="likebottom likebottomi">
+                                        <form action="#">
+                                            <input type="text" placeholder="Add a reply">
+                                            <div>
+                                                <a id="cancel" onclick="commentcancelbtn(this)">Cancel</a>
+                                                <button type="submit">Reply</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="commentdelete" onsubmit="formsubmit(this)">
+                                <a onclick="commentopt(this)" style="border: none; background: none; outline: none; cursor: pointer;">
+                                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; width: 24px; height: 24px;"><g class="style-scope yt-icon"><path d="M12,16.5c0.83,0,1.5,0.67,1.5,1.5s-0.67,1.5-1.5,1.5s-1.5-0.67-1.5-1.5S11.17,16.5,12,16.5z M10.5,12 c0,0.83,0.67,1.5,1.5,1.5s1.5-0.67,1.5-1.5s-0.67-1.5-1.5-1.5S10.5,11.17,10.5,12z M10.5,6c0,0.83,0.67,1.5,1.5,1.5 s1.5-0.67,1.5-1.5S12.83,4.5,12,4.5S10.5,5.17,10.5,6z" class="style-scope yt-icon"></path></g></svg>
+                                </a>
+                                <div class="commentoptions">
+                                    {% if comment.comment_user != request.user %}
+                                        <a href="#">Report</a>
+                                    {% else %}
+                                        <a id="deletecommentbtn" onclick="deletecommentfun(this)">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+                        `;
+
+                        if(publiccomments.querySelector('.publiccomment'))
+                        {
+                            commentloader.style.display = 'flex';
+                            setTimeout(function(){
+                                commentloader.style.display = 'none';
+                                publiccomments.querySelector('.publiccomment').insertAdjacentHTML('beforebegin', output);    
+                            }, 2000)
+                        } else {
+                            commentloader.style.display = 'flex';
+                            setTimeout(function(){
+                                commentloader.style.display = 'none';
+                                publiccomments.innerHTML += output;
+                            }, 2000)
+                        }
+
+                        setTimeout(function(){
+                            var commentcount = commentform.parentElement.parentElement.parentElement.querySelector('.commentcount label span');
+                            var value = commentcount.innerHTML;
+                            value++;
+                            commentcount.innerHTML = value;
+                        }, 2500)
+                        
+                        comment_body.value = '';
+                        comment_id.value = uniqueId();
+                    },
+                    error: function(error){
+                        console.log(error);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                })
+        })
+    }
+    comment();
+
+const uniqueId = (length=16) => {
+    return parseInt(Math.ceil(Math.random() * Date.now()).toPrecision(length).toString().replace(".", ""))
+}
+
+window.onload = function(){
+    function commenttime(){
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth()+1;
+        var year = date.getFullYear();
+        var h = date.getHours() % 12 || 12;
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+        if (h < 10){ h = "0" + h}
+        if (m < 10){ m = "0" + m}
+        if (s < 10){ s = "0" + s}
+        var thistime = year+"-"+month+"-"+day+" "+h+":"+m+":"+s;
+        return thistime;
+    }
+}
+
+
+
+</script>
+
+<script>
+function qwe(){
+    var replybtni = document.querySelectorAll('#replybtni');
+    var likebottomi = document.querySelectorAll('.likebottomi');
+    for(let i=0; i<replybtni.length; i++){
+        replybtni[i].onclick = function(){
+            likebottomi[i].classList.toggle('active');
+        }
+    }
+}
+
+
+
+function formsubmit(e){
+    e.preventDefault();
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+    const playPauseBtn = document.querySelector(".play-pause-btn")
+    const theaterBtn = document.querySelector(".theater-btn")
+    const fullScreenBtn = document.querySelector(".full-screen-btn")
+    const miniPlayerBtn = document.querySelector(".mini-player-btn")
+    const muteBtn = document.querySelector(".mute-btn")
+    const captionsBtn = document.querySelector(".captions-btn")
+    const speedBtn = document.querySelector(".speed-btn")
+    const currentTimeElem = document.querySelector(".current-time")
+    const totalTimeElem = document.querySelector(".total-time")
+    const previewImg = document.querySelector(".preview-img")
+    const thumbnailImg = document.querySelector(".thumbnail-img")
+    const volumeSlider = document.querySelector(".volume-slider")
+    const videoContainer = document.querySelector(".video-con")
+    const timelineContainer = document.querySelector(".timeline-container")
+    const video = document.querySelector("video")
+    
+    document.addEventListener("keydown", e => {
+      const tagName = document.activeElement.tagName.toLowerCase()
+    
+      if (tagName === "input") return
+    
+      switch (e.key.toLowerCase()) {
+        case " ":
+          if (tagName === "button") return
+        case "k":
+          togglePlay()
+          break
+        case "f":
+          toggleFullScreenMode()
+          break
+        case "t":
+          toggleTheaterMode()
+          break
+        case "i":
+          toggleMiniPlayerMode()
+          break
+        case "m":
+          toggleMute()
+          break
+        case "arrowleft":
+        case "j":
+          skip(-5)
+          break
+        case "arrowright":
+        case "l":
+          skip(5)
+          break
+        case "c":
+          toggleCaptions()
+          break
+      }
+    })
+    
+    // Timeline
+    timelineContainer.addEventListener("mousemove", handleTimelineUpdate)
+    timelineContainer.addEventListener("mousedown", toggleScrubbing)
+    document.addEventListener("mouseup", e => {
+      if (isScrubbing) toggleScrubbing(e)
+    })
+    document.addEventListener("mousemove", e => {
+      if (isScrubbing) handleTimelineUpdate(e)
+    })
+    
+    let isScrubbing = false
+    let wasPaused
+    function toggleScrubbing(e) {
+      const rect = timelineContainer.getBoundingClientRect()
+      const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
+      isScrubbing = (e.buttons & 1) === 1
+      videoContainer.classList.toggle("scrubbing", isScrubbing)
+      if (isScrubbing) {
+        wasPaused = video.paused
+        video.pause()
+      } else {
+        video.currentTime = percent * video.duration
+        if (!wasPaused) video.play()
+      }
+    
+      handleTimelineUpdate(e)
+    }
+    
+    function handleTimelineUpdate(e) {
+      /*const rect = timelineContainer.getBoundingClientRect()
+      const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
+      const previewImgNumber = Math.max(
+        1,
+        Math.floor((percent * video.duration) / 10)
+      )
+      const previewImgSrc = `assets/previewImgs/preview${previewImgNumber}.jpg`
+      previewImg.src = previewImgSrc
+      timelineContainer.style.setProperty("--preview-position", percent)
+    
+      if (isScrubbing) {
+        e.preventDefault()
+        thumbnailImg.src = previewImgSrc
+        timelineContainer.style.setProperty("--progress-position", percent)
+      }*/
+    }
+    
+    // Playback Speed
+    speedBtn.addEventListener("click", changePlaybackSpeed)
+    
+    function changePlaybackSpeed() {
+      let newPlaybackRate = video.playbackRate + 0.25
+      if (newPlaybackRate > 2) newPlaybackRate = 0.25
+      video.playbackRate = newPlaybackRate
+      speedBtn.textContent = `${newPlaybackRate}x`
+    }
+    
+    // Captions
+    const captions = video.textTracks[0]
+    captions.mode = "hidden"
+    
+    captionsBtn.addEventListener("click", toggleCaptions)
+    
+    function toggleCaptions() {
+      const isHidden = captions.mode === "hidden"
+      captions.mode = isHidden ? "showing" : "hidden"
+      videoContainer.classList.toggle("captions", isHidden)
+    }
+    
+    // Duration
+    video.addEventListener("loadeddata", () => {
+      totalTimeElem.textContent = formatDuration(video.duration)
+    })
+    
+    video.addEventListener("timeupdate", () => {
+      currentTimeElem.textContent = formatDuration(video.currentTime)
+      const percent = video.currentTime / video.duration
+      timelineContainer.style.setProperty("--progress-position", percent)
+    })
+    
+    const leadingZeroFormatter = new Intl.NumberFormat(undefined, {
+      minimumIntegerDigits: 2,
+    })
+    function formatDuration(time) {
+      const seconds = Math.floor(time % 60)
+      const minutes = Math.floor(time / 60) % 60
+      const hours = Math.floor(time / 3600)
+      if (hours === 0) {
+        return `${minutes}:${leadingZeroFormatter.format(seconds)}`
+      } else {
+        return `${hours}:${leadingZeroFormatter.format(
+          minutes
+        )}:${leadingZeroFormatter.format(seconds)}`
+      }
+    }
+    
+    function skip(duration) {
+      video.currentTime += duration
+    }
+    
+    // Volume
+    muteBtn.addEventListener("click", toggleMute)
+    volumeSlider.addEventListener("input", e => {
+      video.volume = e.target.value
+      video.muted = e.target.value === 0
+    })
+    
+    function toggleMute() {
+      video.muted = !video.muted
+    }
+    
+    video.addEventListener("volumechange", () => {
+      volumeSlider.value = video.volume
+      let volumeLevel
+      if (video.muted || video.volume === 0) {
+        volumeSlider.value = 0
+        volumeLevel = "muted"
+      } else if (video.volume >= 0.5) {
+        volumeLevel = "high"
+      } else {
+        volumeLevel = "low"
+      }
+    
+      videoContainer.dataset.volumeLevel = volumeLevel
+    })
+    
+    // View Modes
+    theaterBtn.addEventListener("click", toggleTheaterMode)
+    fullScreenBtn.addEventListener("click", toggleFullScreenMode)
+    miniPlayerBtn.addEventListener("click", toggleMiniPlayerMode)
+    
+    function toggleTheaterMode() {
+      videoContainer.classList.toggle("theater")
+    }
+    
+    function toggleFullScreenMode() {
+      if (document.fullscreenElement == null) {
+        videoContainer.requestFullscreen()
+      } else {
+        document.exitFullscreen()
+      }
+    }
+    
+    function toggleMiniPlayerMode() {
+      if (videoContainer.classList.contains("mini-player")) {
+        document.exitPictureInPicture()
+      } else {
+        video.requestPictureInPicture()
+      }
+    }
+    
+    document.addEventListener("fullscreenchange", () => {
+      videoContainer.classList.toggle("full-screen", document.fullscreenElement)
+    })
+    
+    video.addEventListener("enterpictureinpicture", () => {
+      videoContainer.classList.add("mini-player")
+    })
+    
+    video.addEventListener("leavepictureinpicture", () => {
+      videoContainer.classList.remove("mini-player")
+    })
+    
+    // Play/Pause
+    playPauseBtn.addEventListener("click", togglePlay)
+    video.addEventListener("click", togglePlay)
+    
+    function togglePlay() {
+      video.paused ? video.play() : video.pause()
+    }
+    
+    video.addEventListener("play", () => {
+      videoContainer.classList.remove("paused")
+    })
+    
+    video.addEventListener("pause", () => {
+      videoContainer.classList.add("paused")
+    })
+
+
+
+    video.onended = (event) => {
+        console.log('Video stopped either because 1) it was over, ' +'or 2) no further data is available.');
+    };
+    
+</script>
+
+
+
+
+<script>
+    var commentdelete = document.getElementById('commentdelete');
+    commentdelete.addEventListener('submit', function(e){
+        e.preventDefault();
+    })
+</script>
+
+
+
+<script>
+{% comment %} function fetchlikecount(){
+    id = "{{video.id}}";
+    $.ajax({
+        url: `${id}/likes_count`,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response){
+            document.querySelector('.likecon .like label').innerHTML = response.likes_count;
+        }
+    })
+} {% endcomment %}
+
+{% comment %} setInterval(fetchlikecount, 1000); {% endcomment %}
+
+
+{% comment %} function getcomments(){
+    id = "{{video.id}}";
+    $.ajax({
+        url: `${id}/comments`,
+        method: 'GET',
+        dataType: 'json', 
+        success: function(response){
+
+        }
+    })
+}
+setInterval(getcomments, 1000); {% endcomment %}
+
+
+
+
+const videosrcurl = document.getElementById('videosrcurl');
+
+videosrcurl.addEventListener('loadeddata', () => {
+    
+});
+
+</script>
+
+
+{% endblock %}
+

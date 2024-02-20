@@ -1,0 +1,325 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+{% block title %}<title>{{request.user.channeluser.channelname}} - YouTube</title>{% endblock %}
+
+<style>
+    .post-inner .post .post-detail h3
+    {
+        color: black;
+    }
+    .featured .f-inner .feature-detail h4
+    {
+        color: black;
+    }
+    .channel-inner .posts .post-inner .post .post-img 
+    {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .channel-outer .buttons button.active 
+    {
+        background: whitesmoke;
+    }
+    .channelcon .banner 
+    {
+        height: calc(16.1290322581vw - 1px);
+        width: 100%;
+        overflow: hidden;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+    }
+    .post .post-detail 
+    {
+        text-align: left;
+    }
+    .featured .feature-detail 
+    {
+        text-align: left;
+    }
+    .channel-header .right
+    {
+        display: flex;
+        align-items: center;
+    }
+    .channel-header .right #cust button
+    {
+        background: dodgerblue;
+        color: white;
+        margin-right: 5px;
+    }
+    .channel-header .right #manage button
+    {
+        background: dodgerblue;
+        color: white;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    .channelcon .banner 
+    {
+        height: calc(16.1290322581vw - 1px);
+        width: 100%;
+        overflow: hidden;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+    }
+    .post .post-detail 
+    {
+        text-align: left;
+    }
+    .featured .feature-detail 
+    {
+        text-align: left;
+    }
+    .channel-header .right
+    {
+        display: flex;
+        align-items: center;
+    }
+    .channel-header .right #cust button
+    {
+        background: dodgerblue;
+        color: white;
+        margin-right: 5px;
+    }
+    .channel-header .right #manage button
+    {
+        background: dodgerblue;
+        color: white;
+    }
+    
+    .aboutdesc 
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    .aboutdesc .left 
+    {
+        width: 60%;
+    }
+    .aboutdesc .left .descript
+    {
+        width: 100%;
+        padding-bottom: 20px;
+        border-bottom: .5px solid lightgray;
+    }
+    .aboutdesc .left .descript label 
+    {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 400;
+    }
+    .aboutdesc .left .descript p 
+    {
+        margin-top: 15px;
+        min-width: 0;
+        word-wrap: break-word;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+    }
+    .aboutdesc .left .links 
+    {
+        margin-top: 20px;
+        border-bottom: .5px solid lightgray;
+        padding-bottom: 20px;
+    }
+    .aboutdesc .left .links .anchors
+    {
+        margin-top: 10px;
+    }
+    .aboutdesc .left .links .anchors a 
+    {
+        font-size: 13px;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+
+    .aboutdesc .right 
+    {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+    }
+    .aboutdesc .right .stats
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+    }
+    .aboutdesc .right .stats label 
+    {
+        width: 100%;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+    .aboutdesc .right .stats span 
+    {
+        width: 100%;
+        color: #0f0f0f;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        padding: 12px 0;
+        border-top: .5px solid lightgray;
+    }
+
+
+
+    .channelcon .banner 
+    {
+        height: calc(16.1290322581vw - 1px);
+        width: 100%;
+        overflow: hidden;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+    }
+    .post .post-detail 
+    {
+        text-align: left;
+    }
+    .featured .feature-detail 
+    {
+        text-align: left;
+    }
+    .channel-header .right
+    {
+        display: flex;
+        align-items: center;
+    }
+    .channel-header .right #cust button
+    {
+        background: dodgerblue;
+        color: white;
+        margin-right: 5px;
+    }
+    .channel-header .right #manage button
+    {
+        background: dodgerblue;
+        color: white;
+    }
+
+
+    
+    .channel-outer .buttons
+    {
+        width: 100%;
+        max-width: 1150px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        overflow-x: scroll;
+        background: white;
+        padding: 0 20px;
+    }
+    .channel-outer .buttons::-webkit-scrollbar
+    {
+        width: 0;
+        height: 0;
+    }
+    .channel-outer .buttons button
+    {
+        height: 100%;
+        border: none;
+        background: none;
+        border-bottom: 2px solid white;
+        display: flex;
+        align-items: flex-start;
+    }
+    .channel-outer .buttons button.active 
+    {
+        border-bottom: 2px solid gray;
+    }
+    .channel-outer .buttons button a 
+    {
+        padding: 0px 32px;
+        text-transform: uppercase;
+        color: #606060;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: .5px;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+    }
+
+
+
+
+</style>
+
+
+{% include 'sidebar.html' %}
+{% include 'hiddensidebar.html' %}
+
+<div class="main-scroll">
+    <div class="channelcon">
+        <div class="banner" style="background-image: url({% if request.user.channeluser.banner %}{{request.user.channeluser.banner.url}}{% endif %});">
+            
+        </div>
+        <div class="channel-outer">
+            <div class="channel-layer">
+                <div class="channel-header">
+                    <div class="left">
+                        <div class="channel-img">
+                            <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{request.user.channeluser.channelimg.url}}">
+                        </div>
+                        <div class="channel-name" style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <h4>{{request.user.channeluser.channelname}}</h4>
+                            <h6 style="margin-bottom: 25px;">@{{request.user.channeluser.channelslug}} &nbsp;&bull;&nbsp; <label>{{request.user.channeluser.subscribers.count}} {% if request.get_full_path == 'channel/{{request.user.channeluser.id}}' %}true{% endif %} subscribers</label> &nbsp;&bull;&nbsp;<label>{{user_videos_count}} videos</ </h6>
+                            <br>
+                            <label>{{request.user.channeluser.channeldescription}}</label>
+                        </div>
+                    </div>
+                    <div class="right">
+                        {% if request.user == user.channeluser %}
+                            <form action="{% url 'studio' request.user.channeluser.id %}" id="manage" method="POST">
+                                {% csrf_token %}
+                                <button>MANAGE VIDEOS</button>
+                            </form>
+                        {% else %}
+                            <form action="#">
+                                <button>Subscribe</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                
+            </div>
+
+            {% block channel %}
+            
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

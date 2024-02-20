@@ -1,0 +1,397 @@
+{% extends 'studio/studio.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}<title>Channel Dashboard - YouTube</title>{% endblock %}
+{% block studio %}
+
+<style>
+    .main .main-scroll .inner .videobtn
+    {
+        position: none;
+    }
+    .main-scroll .inner .head 
+    {
+        position: sticky;
+        top: 0;
+        left: 0;
+        background: white;
+    }
+    .main-scroll .inner .heads
+    {
+        height: calc(100vh - 160px);
+        background: ;
+    }
+    
+    .comments 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .comments .comment
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 24px;
+    }
+    .comments .comment .left 
+    {
+        width: 60%;
+        display: flex;
+        align-items: flex-start;
+        color: #606060;
+    }
+
+    .comments .comment .left .leftside
+    {
+        width: 56px;
+        min-width: 56px;
+    }
+    .comments .comment .left .leftside .leftimg 
+    {
+        width: 40px;
+        height: 40px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 1px solid white;
+    }
+    .comments .comment .left .leftside .leftimg:active
+    {
+        border: 1px solid dodgerblue;
+    }
+    .comments .comment .left .leftside .leftimg img 
+    {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    .comments .comment .left .leftdetail 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .comments .comment .left .leftdetail span 
+    {
+        color: #606060;
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: 400;
+        text-decoration: none;
+        margin-right: 5px;
+        margin-bottom: 4px;
+    }
+    .comments .comment .left .leftdetail span a 
+    {
+        text-decoration: none;
+        color: #606060;
+        opacity: .8;
+    }
+    .comments .comment .left .leftdetail span a:hover
+    {
+        opacity: 1;
+    }
+    .comments .comment .left .leftdetail label 
+    {
+        font-size: 13px;
+        color: #606060;
+    }
+    .comments .comment .left .leftdetail .desc 
+    {
+        width: 90%;
+    }
+    .comments .comment .left .leftdetail .desc p 
+    {
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 20px;
+        color: #0d0d0d;
+    }
+
+    .comments .comment .left .leftdetail .commentactions
+    {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    }
+    .commentactions #REPLY
+    {
+        background: none;
+        border: none;
+        margin-right: 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding: 3px 5px;
+    }
+    .commentactions #REPLY:hover 
+    {
+        background: whitesmoke;
+    }
+    .commentactions #replies
+    {
+        margin-right: 20px;
+    }
+    .commentactions .like
+    {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+    }
+    .commentactions .like button
+    {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        outline: none;
+        background: none;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .commentactions .like button:hover 
+    {
+        background: whitesmoke;
+    }
+    .commentactions .like button svg
+    {
+        width: 20px;
+        height: 20px;
+    }
+    .commentactions .heart
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        position: relative;
+    }
+    .commentactions .heart button
+    {
+        width: 18px;
+        height: 18px;
+        background: none;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .commentactions .heart button img 
+    {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+    }
+    .commentactions .heart #heart
+    {
+        position: absolute;
+        bottom: -3px;
+        right: -3px;
+        width: 12px;
+        height: 12px;
+        fill: red;
+    }
+
+
+
+
+    .commentactions .commentoption
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    .commentactions .commentoption button
+    {
+        width: 18px;
+        height: 18px;
+        background: none;
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .commentactions .commentoption .opted
+    {
+        width: 250px;
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        background: white;
+        border-radius: 2px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.23);
+        display: none;
+    }
+    .commentactions .commentoption .opted.active 
+    {
+        display: flex;
+    }
+    .commentoption .opted ul 
+    {
+        list-style: none;
+    }
+    .commentoption .opted ul li
+    {
+        display: flex;
+        align-items: flex-start;
+    }
+    .commentoption .opted ul li a 
+    {
+        width: 100%;
+        padding: 11px 10px;
+        text-decoration: none;
+        color: #000000;
+    }
+
+
+
+    .comments .comment .right 
+    {
+        width: 40%;
+        display: flex;
+        align-items: flex-start;
+    }
+    .comments .comment .right .rightimg 
+    {
+        width: 150px;
+        min-width: 150px;
+        overflow: hidden;
+    }
+    .comments .comment .right .rightimg img 
+    {
+        width: 100%;
+    }
+    .comments .comment .right .rightdetail 
+    {
+        margin-left: 10px;
+    }
+    .comments .comment .right .rightdetail p 
+    {
+        max-height: 39px;
+        overflow: hidden;
+        font-size: 15px;
+    }
+    .comments .comment .right .rightdetail p a 
+    {
+        text-decoration: none;
+        color: black;
+    }
+    .comments .comment .right button
+    {
+        width: 25px;
+        height: 25px;
+        min-width: 25px;
+        border: none;
+        background: none;
+    }
+
+</style>
+
+
+<div class="inner">
+    <h5>Channel comments</h5>
+    <div class="videobtn">
+        <button>
+            <a href="#">
+                published
+            </a>
+        </button>
+    </div>
+
+
+    <div class="comments">
+        {% for this in comments %}
+        {{this.comment_id}}
+        {% endfor %}
+        {% for comment in comments %}
+        <div class="comment">
+            <div class="left">
+                <div class="leftside">
+                    <div class="leftimg">
+                        <a href="#">
+                            <img src="">
+                        </a>
+                    </div>
+                </div>
+                <div class="leftdetail">
+                    <div class="header">
+                        <span><a href="#">@{{comment.comment_video}}</a></span> &bull; <label>51 minutes ago</label>
+                    </div>
+                    <div class="desc">
+                        <p></p>
+                    </div>
+                    <div class="commentactions">
+                        <button id="REPLY">REPLY</button>
+                        <label id="replies">0 replies</label>
+                        <div class="like">
+                            <button>
+                                <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>
+                            </button>
+                            <label>0</label>
+                        </div>
+                        <div class="heart">
+                            <button>
+                                <!-- <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M16.5,3C19.02,3,21,5.19,21,7.99c0,3.7-3.28,6.94-8.25,11.86L12,20.59l-0.74-0.73l-0.04-0.04C6.27,14.92,3,11.69,3,7.99 C3,5.19,4.98,3,7.5,3c1.4,0,2.79,0.71,3.71,1.89L12,5.9l0.79-1.01C13.71,3.71,15.1,3,16.5,3 M16.5,2c-1.74,0-3.41,0.88-4.5,2.28 C10.91,2.88,9.24,2,7.5,2C4.42,2,2,4.64,2,7.99c0,4.12,3.4,7.48,8.55,12.58L12,22l1.45-1.44C18.6,15.47,22,12.11,22,7.99 C22,4.64,19.58,2,16.5,2L16.5,2z" class="style-scope yt-icon"></path><path fill="none" d="M0,0h24v24H0V0z" class="style-scope yt-icon"></path></g></svg> -->
+
+                                <img src="{% static 'images/pic.jpg' %}">
+                                <svg id="heart" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M16.5,2c-1.74,0-3.41,0.88-4.5,2.28C10.91,2.88,9.24,2,7.5,2C4.42,2,2,4.64,2,7.99c0,4.12,3.4,7.48,8.55,12.58L12,22 l1.45-1.44C18.6,15.47,22,12.11,22,7.99C22,4.64,19.58,2,16.5,2z" class="style-scope yt-icon"></path></g></svg>
+                            </button>
+                        </div>
+                        <div class="commentoption">
+                            <button>
+                                <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope tp-yt-iron-icon" style="pointer-events: none;"><g class="style-scope tp-yt-iron-icon"><path d="M12,16.5c0.83,0,1.5,0.67,1.5,1.5s-0.67,1.5-1.5,1.5s-1.5-0.67-1.5-1.5S11.17,16.5,12,16.5z M10.5,12 c0,0.83,0.67,1.5,1.5,1.5s1.5-0.67,1.5-1.5s-0.67-1.5-1.5-1.5S10.5,11.17,10.5,12z M10.5,6c0,0.83,0.67,1.5,1.5,1.5 s1.5-0.67,1.5-1.5S12.83,4.5,12,4.5S10.5,5.17,10.5,6z" class="style-scope tp-yt-iron-icon"></path></g></svg>
+                            </button>
+                            <div class="opted">
+                                <ul>
+                                    <li>
+                                        <a href="#">Remove</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Report</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Hide user from channel</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="rightimg">
+                    <a href="#">
+                        <img src="{% static 'images/thumbnail.jpg' %}">
+                    </a>
+                </div>
+                <div class="rightdetail">
+                    <p><a href="#">Kid vs Kat - Fishy Frisky Business [Kid, Kat, Lilly]</a></p>
+                </div>
+                <button>
+                    <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M21,21H3V3h9v1H4v16h16v-8h1V21z M15,3v1h4.32l-8.03,8.03L12,12.74l8-8V9h1V3H15z" class="style-scope yt-icon"></path></g></svg>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+    
+</div>
+
+
+<script>
+window.onload = function(){
+    var json2 = "{{comments}}";
+    console.log(json2);
+}
+</script>
+{% endblock %}

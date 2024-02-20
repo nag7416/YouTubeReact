@@ -1,0 +1,2424 @@
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>YouTube</title>{% endblock %}
+    {% comment %} <link rel="stylesheet" href="{% static 'css/style1.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nagendra7416/cdnsformyproject@main/style1.css">
+    <link rel="shortcut icon" href="https://www.youtube.com/s/desktop/d1f7a302/img/favicon.ico">
+
+
+
+ <style>
+
+    
+
+
+
+
+
+    nav .inner .center .search #search
+    {
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+    }
+
+    .videocon .left .video-con
+    {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .main .main-scroll .inner
+    {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+
+    {% comment %} dark theme {% endcomment %}
+    .side .buttons ul li.active
+    {
+        background: none;
+    }
+    body.dark 
+    {
+        background: #0f0f0f;
+    }
+
+    body.dark nav
+    {
+        background: #0f0f0f; 
+        border-bottom: none;
+    }
+    body.dark nav .inner .left .menu button svg
+    {
+        fill: white;
+    }
+    body.dark nav .inner .left .logo svg
+    {
+        fill: white;
+    }
+    body.dark nav .inner .left .men button svg
+    {
+        fill: white;
+    }
+    body.dark nav .inner .center .search
+    {
+        background: transparent;
+        border: .5px solid hsl(0, 0%, 18.82%);
+    }
+    body.dark nav .inner .center .search #search
+    {
+        border-left: none;
+    }
+    body.dark nav .center form
+    {
+        background: transparent;
+        
+    }
+    body.dark nav .inner .center .search input
+    {
+        background: #121212;
+        color: white;
+    }
+    body.dark nav .inner .center .search #search
+    {
+        background: #222222;
+    }
+    body.dark nav .inner .center .search #search svg 
+    {
+        fill: white;
+    }
+    body.dark nav .inner .center #mic
+    {
+        fill: white;
+    }
+    body.dark nav .inner .right .links ul li .link button a svg
+    {
+        fill: white
+    }
+    body.dark nav .inner .right .links ul li .profilecard
+    {
+        background: #282828;
+    }
+    body.dark .profilecard .options .option ul li button a:hover
+    {
+        background: #666666;
+    }
+    body.dark .profilecard .options
+    {
+        background: #282828;
+    }
+    body.dark .profilecard .inner .name
+    {
+        border-bottom: .5px solid rgba(255, 255, 255, 0.2);
+    }
+    body.dark .profilecard .options .option
+    {
+        border-bottom: .5px solid rgba(255, 255, 255, 0.2);
+    }
+    body.dark .profilecard .inner .name .right h3
+    {
+        color: white;
+    }
+    body.dark .profilecard .options .option ul li button a svg
+    {
+        fill: white;
+    }
+    body.dark .profilecard .options .option ul li button a label
+    {
+        color: white;
+    }
+    body.dark .notificationbox 
+    {
+        background: white;
+    }
+    body.dark .notificationbox .head
+    {
+        background: #282828;
+    }
+    body.dark .notificationbox
+    {
+        background: #282828;
+        border: .5px solid #121212;
+    }
+    body.dark .notificationbox .head label 
+    {
+        color: white;
+    }
+    body.dark .notificationbox .head button svg
+    {
+        fill: white;
+    }
+    body.dark .notificationbox .middle .detail p
+    {
+        color: white;
+    }
+    body.dark .notificationbox .middle .detail label
+    {
+        color: gray;
+    }
+    body.dark .notificationbox .head
+    {
+        border-bottom: .5px solid gray;
+    }
+    body.dark .notificationbox .middle p
+    {
+        color: white;
+    }
+
+
+    body.dark .main .side
+    {
+        background: #0f0f0f;
+    }
+    body.dark .main .side .buttons ul li .but button a svg
+    {
+        fill: white;
+    }
+    body.dark .main .side .buttons ul li .but button a label
+    {
+        color: white;
+    }
+    body.dark .side .buttons ul li.active
+    {
+        background: transparent;
+    }
+    body.dark .main .side .buttons ul li:hover 
+    {
+        background: #272727;
+    }
+    body.dark .main .side
+    {
+        border-right: none;
+    }
+
+
+
+
+
+
+    body.dark .main .main-scroll
+    {
+        background: #0f0f0f;
+        border: none;
+    }
+    body.dark .video .video-detail .video-right h3
+    {
+        color: #f1f1f1;
+    }
+    body.dark .video .video-detail .video-right .channel a
+    {
+        color: #aaaaaa;
+        transition: .2s;
+    }
+    body.dark .video .video-detail .video-right .channel a:hover 
+    {
+        color: white;
+        transition: .2s;
+    }
+    body.dark .video .video-detail .video-right span
+    {
+        color: #aaaaaa;
+    }
+    nav .inner .left .men button svg
+    {
+        fill: black;
+    }
+
+
+
+    body.dark .main .sidebar
+    {
+        background: #0f0f0f;
+    }
+    body.dark .main .sidebar .linkscon .links ul li .link button a svg
+    {
+        fill: white;
+    }
+    body.dark .sidebar label
+    {
+        color: white;
+    }
+    body.dark .main .sidebar .linkscon .links ul li .link button a span
+    {
+        color: white;
+    }
+    body.dark .main .sidebar .linkscon .links p
+    {
+        color: white;
+    }
+    body.dark .main .sidebar .linkscon .links ul li .link button a:hover 
+    {
+        background: #272727;
+    }
+    body.dark nav .inner .left .men:hover
+    {
+        background: none;
+    }
+
+    body.dark .main .sidebar .linkscon .links ul li.active .link button 
+    {
+        background: #272727;
+    }
+    body.dark .main .sidebar .linkscon .links
+    {
+        border-bottom: .5px solid rgba(255, 255, 255, 0.2);
+    }
+
+
+    body.dark .hiddensidebar
+    {
+        background: #0f0f0f;
+    }
+    body.dark .hiddensidebar .header
+    {
+        background: #0f0f0f;
+    }
+    body.dark .hiddensidebar .header .menu button svg
+    {
+        fill: white;
+    }
+    body.dark .hiddensidebar #logo svg
+    {
+        fill: white;
+    }
+    body.dark .hiddensidebar .linkscon
+    {
+        background: #0f0f0f;
+    }
+    body.dark .hiddensidebar .linkscon .links ul li .link button a svg
+    {
+        fill: white;
+    }
+    body.dark .hiddensidebar label
+    {
+        color: white;
+    }
+    body.dark .hiddensidebar .linkscon .links ul li .link button a span
+    {
+        color: white;
+    }
+    body.dark .hiddensidebar .linkscon .links p
+    {
+        color: white;
+    }
+    body.dark .hiddensidebar .linkscon .links ul li.active .link button
+    {
+        background: #272727;
+    }
+    body.dark .hiddensidebar .linkscon .links ul li .link button:hover
+    {
+        background: #272727;
+    }
+
+
+    body.dark .channel-layer .channel-header
+    {
+        background: #0f0f0f;
+    }
+    body.dark .channelcon .channel-outer .channel-layer
+    {
+        background: #0f0f0f;
+    }
+    body.dark .channel-outer .buttons
+    {
+        background: #0f0f0f;
+    }
+    body.dark .channel-outer .buttons button
+    {
+        border-bottom: 2px solid transparent;
+    }
+    body.dark .channel-outer .buttons button a 
+    {
+        color: gray;
+    }
+    body.dark .channel-outer .buttons button.active
+    {
+        background: none;
+        border-bottom: 2px solid white;
+    }
+    body.dark .channel-outer .buttons button.active a 
+    {
+        color: white;
+    }
+    body.dark .channel-header .left .channel-name h4 
+    {
+        color: #f1f1f0;
+    }
+    .channel-header .left .channel-name h6 
+    {
+        color: gray;
+        margin-bottom: 8px; 
+        font-weight: 400; 
+        font-size: 13px;
+    }
+    body.dark .channel-header .left .channel-name h6 
+    {
+        color: #aaa;
+    }
+    body.dark .channel-header .left .channel-name label
+    {
+        color: #aaa;
+    }
+    body.dark .featured .f-inner .feature-detail h4 
+    {
+        color: #f1f1f1;
+    }
+    body.dark .featured .f-inner .feature-detail a
+    {
+        color: #aaa;
+    }
+    body.dark .featured .f-inner .feature-detail span
+    {
+        color: #aaa;
+    }
+    body.dark .post-inner .post .post-detail h3
+    {
+        color: #f1f1f1;
+    }
+    body.dark .post-inner .post .post-detail a
+    {
+        color: #aaa;
+    }
+    body.dark .post-inner .post .post-detail span 
+    {
+        color: #aaa;
+    }
+    body.dark .post .post-detail label
+    {
+        background: rgba(0,0,0,.5);
+        color: white;
+    }
+    body.dark .post .channelinner .channeldetail a 
+    {
+        color: #f1f1f1;
+    }
+    body.dark .post .channelinner .channeldetail label 
+    {
+        color: #aaa;
+    }
+    body.dark .post .channelinner .channeldetail button
+    {
+        background: gray;
+        color: white;
+    }
+    body.dark .posts p 
+    {
+        color: #f1f1f1;
+    }
+
+    body.dark .aboutdesc .left .descript label 
+    {
+        color: #f1f1f1;
+    }
+    body.dark .aboutdesc .left .descript p 
+    {
+        color: gray;
+    }
+    body.dark .aboutdesc .left .descript
+    {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    body.dark .aboutdesc .right .stats label
+    {
+        color: #f1f1f1;
+    }
+    body.dark .aboutdesc .right .stats span 
+    {
+        color: gray;
+        border-top: .5px solid rgba(255, 255, 255, 0.2);
+    }
+    body.dark .aboutdesc .left .links label 
+    {
+        color: #f0f0f0;
+    }
+    body.dark .aboutdesc .left .links 
+    {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    body.dark #commentdelete a svg
+    {
+        fill: white;
+    }
+    body.dark #commentdelete .commentoptions 
+    {
+        background: #0f0f0f;
+        color: white;
+    }
+    {% comment %} dark theme end {% endcomment %}
+
+
+    nav .inner .right .links ul li .profilecard
+    {
+        height: 600px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    .main .side
+    {
+        height: calc(100vh - 56px);
+    }
+    .main .main-scroll
+    {
+        height: calc(100vh - 56px);
+    }
+
+    nav .inner .center .search input
+    {
+        padding: 0 20px;
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 40px;
+    }
+    nav .inner .center .search
+    {
+        width: 80%;
+    }
+    nav .inner .center
+    {
+        justify-content: center;
+    }
+    #closebtn
+    {
+        z-index: 100;
+    }
+    nav 
+    {
+        border-bottom: none;
+    }
+    .right-inner .videos .video .video-detail h4 
+    {
+        color: #000;
+    }
+
+    .hiddensidebar
+    {
+        transform: translateX(-250px);
+    }
+    .hiddensidebar .linkscon .links p
+    {
+        margin-bottom: 10px;
+    }
+    .watchlater .right .vs .v a 
+    {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+    }
+    a 
+    {
+        text-decoration: none;
+    }
+    .video-author-img 
+    {
+        position: relative;
+    }
+    .video-author-img a 
+    {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    a 
+    {
+        cursor: pointer;
+    }
+    #notification span 
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #f00;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: white;
+    }
+    .explores .explore .leftimg span
+    {
+        z-index: 0;
+    }
+    form button
+    {
+        cursor: pointer;
+    }
+    .main .sidebar .linkscon .links ul li .link form 
+    {
+        height: 100%;
+        cursor: pointer;
+    }
+    #videourl video
+    {
+        display: none;
+    }
+
+    #videourl 
+    {
+        border-radius: 3px;
+    }
+    .videocon .likecon .con 
+    {
+        padding: 8px 16px;
+        background: #f2f2f2;
+        border-radius: 20px;
+        margin-right: 10px;
+    }
+    .videocon .left .desc:hover 
+    {
+        background: lightgray;
+    }
+    .usercomment .userinput input
+    {
+        border-bottom: 1px solid lightgray;
+    }
+    .featured .f-inner .feature-img
+    {
+        width: 400px;
+        min-width: 400px;
+    }
+    .featured .f-inner .feature-img video 
+    {
+        width: 100%;
+    }
+    
+    .subcon .subinner .subpost .subimg 
+    {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .main-scroll .video .video-img span
+    {
+        padding: 3px 6px;
+    }
+    .explorecon .explore .leftimg
+    {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    nav .inner .left .men
+    {
+        border-radius: 50%;
+    }
+    nav .inner .left .men:hover 
+    {
+        background: whitesmoke;
+    }
+    .main .sidebar .linkscon .links
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .main .sidebar .linkscon .links ul
+    {
+        width: 95%;
+    }
+    .main .sidebar .linkscon .links ul li
+    {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .main .sidebar .linkscon .links p 
+    {
+        width: 100%;
+    }
+    .main .side .buttons ul 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main .side .buttons ul li
+    {
+        width: 90%;
+        height: 90%;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+    .main .side .buttons ul li:hover 
+    {
+        background: whitesmoke;
+    }
+    nav .inner .center .search
+    {
+        border-radius: 40px;
+        border: .5px solid lightgray;
+    }
+    nav .inner .center .search input
+    {
+        border: none;
+    }
+    nav .inner .center .search input:focus
+    {
+        box-shadow: none;
+    }
+    nav .inner .center .search #search
+    {
+        border: none;
+        border-left: .5px solid lightgray;
+    }
+    .videocon .likecon
+    {
+        margin: 5px 0;
+        width: 100%;
+        overflow-x: scroll;
+    }
+    .videocon .likecon::-webkit-scrollbar 
+    {
+        width: 0;
+        height: 0;
+    }
+    .main-scroll .inner .video .video-img
+    {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .post-inner form 
+    {
+        width: 100%;
+    }
+    .post-inner form button
+    {
+        width: 100%;
+    }
+    nav .inner .left .menu
+    {
+        display: none;
+    }
+    nav .inner .left .men
+    {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media (max-width: 1312px){
+        .main .sidebar
+        {
+            display: none;
+        }
+        .main .side
+        {
+            display: block;
+        }
+        .main .main-scroll
+        {
+            width: calc(100% - 72px);
+        }
+        nav .inner .left .menu
+        {
+            display: flex;
+        }
+        nav .inner .left .men 
+        {
+            display: none;
+        }
+    }
+    @media (max-width: 617px){
+        .main .sidebar
+        {
+            display: none;
+        }
+        .main .side 
+        {
+            display: none;
+        }
+        .main .main-scroll
+        {
+            width: 100%;
+        }
+    }
+    nav .inner .left .men button
+    {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+    }
+    nav .inner .left .men button svg
+    {
+        width: 24px;
+        height: 24px;
+    }
+    .sidebar a 
+    {
+        text-decoration: none;
+        color: black;
+    }
+    .sidebar label
+    {
+        text-decoration: none;
+        pointer-events: none;
+    }
+    .hiddensidebar a 
+    {
+        text-decoration: none;
+        color: black;
+    }
+    .hiddensidebar label
+    {
+        text-decoration: none;
+        pointer-events: none;
+    }
+
+    .overlay 
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        visibility: hidden;
+        opacity: 0;
+    }
+    .overlay.active 
+    {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .overlay .uploadbox
+    {
+        width: 60%;
+        min-width: 480px;
+        max-width: 800px;
+        height: auto;
+        background: white;
+        border-radius: 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        position: relative;
+    }
+    .overlay .uploadbox .create 
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, .8);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        display: none;
+    }
+    .overlay .uploadbox .create.active 
+    {
+        display: flex;
+    }
+    .overlay .uploadbox .create span 
+    {
+        width: 40px;
+        height: 40px;
+        border: 2px solid gray;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+    }
+    .overlay .uploadbox .create p 
+    {
+        color: gray;
+    }
+    @keyframes spin {
+        0%
+        {
+            transform: rotate(0deg);
+        }
+        100%
+        {
+            transform: rotate(360deg);
+        }
+    }
+
+
+
+
+
+
+
+
+    .overlay .uploadbox form
+    {
+        width: 100%;
+    }
+    .overlay .uploadbox .header
+    {
+        width: 100%;
+        height: 60px;
+        border-bottom: .5px solid lightgray;
+        display: flex;
+        align-items: center;
+    }
+    .overlay .uploadbox .header h4 
+    {
+        margin-left: 15px;
+        color: #030303;
+        font-size: 20px;
+        line-height: 32px;
+        font-weight: 400;
+    }
+
+    .overlay .uploadbox .middle 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+    }
+    .overlay .uploadbox .middle .img 
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .overlay .uploadbox .middle .img .img-preview
+    {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: rgb(224, 223, 223);
+    }
+    .overlay .uploadbox .middle .img .img-preview img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    .overlay .uploadbox .middle .img button
+    {
+        width: 110px;
+        height: 30px;
+        position: relative;
+        margin-top: 20px;
+        cursor: pointer;
+        border: none;
+        background: none;
+        color: dodgerblue;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+    .overlay .uploadbox .middle .img button input 
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .overlay .uploadbox .middle .search 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 420px;
+        margin: 30px 0;
+        padding: 5px;
+        border-radius: 3px;
+        border: .5px solid lightgray;
+    }
+    .overlay .uploadbox .middle .search input 
+    {
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        border: none;
+    }
+    .overlay .uploadbox .middle .search label
+    {
+        font-size: 12px;
+        color: gray;
+    }
+    .overlay .uploadbox .bottom
+    {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        border-top: .5px solid rgb(224, 223, 223);
+
+        justify-content: flex-end;
+        padding-right: 15px;
+    }
+    .overlay .uploadbox .bottom button
+    {
+        padding: 10px 20px;
+        border: none;
+        background: dodgerblue;
+        color: white;
+        border-radius: 3px;
+        font-size: 13px;
+        font-weight: 400;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    .overlay .uploadbox .bottom a
+    {
+        padding: 8px 20px;
+        border: none;
+        background: rgb(224, 223, 223);
+        color: black;
+        border-radius: 3px;
+        text-decoration: none;
+        margin-right: 10px;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+    .overlay .uploadbox .middle .note 
+    {
+        margin: 10px 0;
+    }
+    .overlay .uploadbox .middle .note p 
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+    #id_channeluser
+    {
+        display: none;
+    }
+    #id_id 
+    {
+        display: none;
+    }
+    nav .center form 
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+
+
+
+    .sidebar .links ul li a 
+    {
+        width: 100%;
+        height: 100%;
+    }
+
+
+
+
+
+
+
+    .channelcon 
+    {
+        width: 100%;
+        height: calc(100% - 0px);
+    }
+
+
+    .channelcon .channel-outer
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 20px;
+
+        /* padding: 0 20px; */
+    }
+    .channelcon .channel-outer .channel-inner 
+    {
+        width: 100%;
+        max-width: 1150px;
+    }
+    .channelcon .channel-outer .channel-layer
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+    }
+    .channel-layer .channel-header
+    {
+        width: 100%;
+        max-width: 1150px;
+        height: 168px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 20px;
+    }
+    .channel-header .left
+    {
+        display: flex;
+        align-items: center;
+    }
+    .channel-header .left .channel-img  
+    {
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+    .channel-header .left .channel-img img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    .channel-header .left .channel-name h4
+    {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 30px;
+        word-break: break-word;
+        max-height: 32px;
+        overflow: hidden;
+    }
+    .channel-header .left .channel-name label 
+    {
+        color: #606060;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        max-height: 10px;
+        overflow: hidden;
+    }
+    .channel-header .right button
+    {
+        background: #000;
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 2px;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: .5px;
+        text-transform: capitalize;
+        display: flex;
+        flex-direction: row;
+        border: none;
+        cursor: pointer;
+        border-radius: 20px;
+    }
+    .channel-header .right #subscribed
+    {
+        background: lightgray;
+        color: gray;
+    }
+    .channel-layer .buttons
+    {
+        width: 100%;
+        max-width: 1150px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        overflow-x: scroll;
+        background: white;
+        padding: 0 20px;
+    }
+    .channel-layer .buttons::-webkit-scrollbar
+    {
+        width: 0;
+        height: 0;
+    }
+    .channel-layer .buttons button
+    {
+        height: 100%;
+        border: none;
+        background: none;
+        border-bottom: 2px solid white;
+    }
+    .channel-layer .buttons button.active 
+    {
+        border-bottom: 2px solid gray;
+    }
+    .channel-layer .buttons button a 
+    {
+        padding: 0px 32px;
+        text-transform: uppercase;
+        color: #606060;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: .5px;
+    }
+
+
+
+    .channel-inner
+    {
+        padding: 0 20px;
+    }
+    .channel-inner .posts 
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .channel-inner .posts .post-inner 
+    {
+        width: 100%;
+    }
+    .channel-inner .posts .post-inner
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        grid-template-rows: auto;
+        grid-column-gap: 5px;
+        grid-row-gap: 15px;
+    }
+
+
+
+    .channel-inner .featured
+    {
+        width: 100%;
+        background: ;
+        margin-top: 20px;
+    }
+    .channel-inner .featured .f-inner 
+    {
+        width: 100%;
+        max-width: 700px;
+        display: flex;
+        align-items: flex-start;
+    }
+    .featured .f-inner .feature-img
+    {
+        width: 350px;
+        min-width: 350px;
+        height: auto;
+        overflow: hidden;
+        margin-right: 10px;
+    }
+    .featured .f-inner .feature-img img 
+    {
+        width: 100%;
+    }
+    .featured .f-inner .feature-detail
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 5px;
+    }
+    .featured .f-inner .feature-detail h4 
+    {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+        max-height: 46px;
+        overflow: hidden;
+    }
+    .featured .f-inner .feature-detail a 
+    {
+        font-size: 13px;
+        color: gray;
+        line-height: 22px;
+        text-decoration: none;
+    }
+    .featured .f-inner .feature-detail span 
+    {
+        font-size: 12px;
+        color: gray;
+    }
+
+
+    .posts p 
+    {
+        margin: 20px 0;
+        color: #030303;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 500;
+        max-height: 22px;
+        overflow: hidden;
+    }
+
+    .channel-inner .posts .post-inner .post 
+    {
+        width: 100%;
+    }
+    .post-inner .post img 
+    {
+        width: 100%;
+    }
+    .post .post-img 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .explore .leftimg 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .watchlater .topimg 
+    {
+        display: flex;
+        align-items: center;
+    }
+    
+
+    .subpost .subimg 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .video .video-img 
+    {
+        display: flex;
+        align-items: center;
+    }
+
+
+    .post-inner .post .post-detail
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .post-inner .post .post-detail h3 
+    {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        max-height: 40px;
+        overflow: hidden;
+    }
+    .post-inner .post .post-detail a 
+    {
+        color: #606060;
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 400;
+        text-decoration: none;
+        max-height: 20px;
+        margin-top: 5px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .post-inner .post .post-detail span
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        color: #606060;
+    }
+
+    .video-author-img
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .video-author-img img 
+    {
+    }
+    .video-author-img a 
+    {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .channel-layer .buttons button
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .channel-layer .buttons button a 
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .channel-header .right 
+    {
+        display: flex;
+        align-items: center;
+    }
+    .channel-header .right svg 
+    {
+        width: 1.8em;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .side .buttons ul li .but button a label 
+    {
+        cursor: pointer;
+    }
+
+    .side .buttons ul li.active 
+    {
+        background: none;
+    }
+
+
+        
+    .notificationbox
+    {
+        position: absolute;
+        top: 38px;
+        right: 5px;
+        width: 480px;
+        height: auto;
+        background: white;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 4px;
+        overflow: hidden;
+        border: .5px solid lightgray;
+        display: none;
+        z-index: 1000;
+    }
+    .notificationbox.active 
+    {
+        display: flex;
+        z-index: 1000;
+    }
+    .notificationbox .head 
+    {
+        width: 100%;
+        height: 50px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: .5px solid lightgray;
+
+        display: none;
+    }
+    .notificationbox .head label 
+    {
+        margin-left: 10px;
+    }
+    .notificationbox .head button
+    {
+        margin-right: 10px;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+    }
+    .notificationbox .head button svg 
+    {
+        width: 24px;
+        height: 24px;
+    }
+    .notificationbox .middle 
+    {
+        width: 100%;
+        height: 500px;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 15px;
+
+        display: none;
+
+    }
+    .notificationbox .middle::-webkit-scrollbar
+    {
+        width: 0;
+    }
+    .notificationbox .middle a 
+    {
+        width: 100%;
+    }
+    .notificationbox .middle .notif 
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between; 
+        padding-top: 15px; 
+    }
+    .notificationbox .middle .notif .notifimg 
+    {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        margin-left: 15px;
+        margin-right: 16px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+    .notificationbox .middle .notif .notifimg img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+
+    .notificationbox button
+    {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    .notificationbox .middle a 
+    {
+        text-decoration: none;
+        color: black;
+    }
+    .notificationbox .middle .postimg
+    {
+        width: 120px;
+        min-width: 120px;
+        height: 70px;
+        margin-left: 5px;
+        margin-right: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .notificationbox .middle .detail
+    {
+        text-align: left;
+    }
+    .notificationbox .middle .detail p 
+    {
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        max-height: 120px;
+        overflow: hidden;
+        text-align: left;
+    }
+    .notificationbox .middle .detail label 
+    {
+        color: #606060;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        text-align: left;
+    }
+    body.dark .notificationbox .notificationloader
+    {
+        background: #282828;
+    }
+    .notificationbox .notificationloader 
+    {
+        width: 100%;
+        height: 550px;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: sticky;
+        top: 0;
+        left: 0;
+    }
+    .notificationbox .notificationloader span 
+    {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #282828;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin .6s linear infinite;
+    }
+    body.dark .notificationbox .notificationloader span 
+    {
+        border: 2px solid #f1f1f1;
+    }
+    @keyframes spin
+    {
+        0%
+        {
+            transform: rotate(0deg);
+        }
+        100%
+        {
+            transform: rotate(360deg);
+        }
+    }
+
+    .hiddensidebar .linkscon .links ul li form 
+    {
+        height: 100%;
+    }
+    .videocon .likecon .con label
+    {
+        cursor: pointer;
+    }
+
+    .post-detail h3 
+    {
+        color: black;
+    }
+
+    .likescon .authorlike
+    {
+        margin-left: 15px;
+    }
+
+</style>
+</head>
+<body>
+    
+    {% include 'navbar.html' %}
+
+    <div class="main">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="overlay">
+        <div class="uploadbox">
+            <div class="create">
+                <span></span>
+                <p>Creating channel</p>
+            </div>
+            <form id="channelcreateform" action="{% url '' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="header">
+                    <h4>How you'll appear</h4>
+                </div>
+                <div class="middle">
+                    <div class="img">
+                        <div class="img-preview">
+                            
+                        </div>
+                        <button>
+                            {{form.channelimg}}
+                            <!--<input type="file" id="filebtn"> -->
+                            Upload Picture
+                        </button>
+                    </div>
+                    <div class="search">
+                        <label>Name</label>
+                        {{form.id}}
+                        {{form.channeluser}}
+                        {{form.channelname}}
+                    </div>
+                    <div class="note">
+                        <p>By clicking Create Channel, you agree to YouTube's Terms of Service. Changes<br> made to your name and avatar are visible only on YouTube and not other Google <br>services. Learn more</p>
+                    </div>
+                </div>
+                <div class="bottom">
+                    <a href="#">
+                        Cancel
+                    </a>
+                    <button type="submit">
+                        Create channel
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="{% static 'js/humanized_time_span.js' %}"></script>
+{% comment %} <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/infinite.min.js' %}"></script> {% endcomment %}
+
+
+<script>
+
+
+    function like_video(element){
+        var id = element.dataset.video_id;
+
+        fetch(id+'/like', {
+            method: 'PUT',
+        })
+        .then(res => {
+            var count = element.querySelector('label');
+            var value = count.innerHTML;
+            value++;
+            count.innerHTML = value;
+            element.querySelector('svg').innerHTML = `<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z" class="style-scope yt-icon"></path></g></svg>`;
+            element.setAttribute('onclick', 'unlike_video(this)');
+        })
+    }
+    function unlike_video(element){
+        var id = element.dataset.video_id;
+
+        fetch(id+'/unlike', {
+            method: 'PUT',
+        })
+        .then(res => {
+            var count = element.querySelector('label');
+            var value = count.innerHTML;
+            value--;
+            count.innerHTML = value;
+            element.querySelector('svg').innerHTML = `<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>`;
+            element.setAttribute('onclick', 'like_video(this)');
+        })
+    }
+    function watchsub(element){
+        let name = element.dataset.channel_id;
+        let id = element.dataset.video_id;
+
+        fetch(id+'/'+name +'/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                "X-CSRFToken": csrftoken,
+            }
+        })
+        .then((res) => {
+            var count = element.parentElement.parentElement.parentElement.querySelector('.subleft .subdetail label span');
+            var value = count.innerHTML;
+            value++;
+            count.innerHTML = value;
+            element.setAttribute('id', 'subscribed');
+            element.innerHTML = 'Subscribed';
+            element.insertAdjacentHTML('afterend', '<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M10,20h4c0,1.1-0.9,2-2,2S10,21.1,10,20z M20,17.35V19H4v-1.65l2-1.88v-5.15c0-2.92,1.56-5.22,4-5.98V3.96 c0-1.42,1.49-2.5,2.99-1.76C13.64,2.52,14,3.23,14,3.96l0,0.39c2.44,0.75,4,3.06,4,5.98v5.15L20,17.35z M19,17.77l-2-1.88v-5.47 c0-2.47-1.19-4.36-3.13-5.1c-1.26-0.53-2.64-0.5-3.84,0.03C8.15,6.11,7,7.99,7,10.42v5.47l-2,1.88V18h14V17.77z" class="style-scope yt-icon"></path></g></svg>');
+            element.setAttribute('onclick', 'watchunsub(this)');
+        })
+        .catch(error => {
+            if(error.status > 200){
+                throw(error);
+            }
+        })
+    }
+    function watchunsub(element){
+        let name = element.dataset.channel_id;
+        let id = element.dataset.video_id;
+
+            fetch(id+'/'+name+'/unsubscribe', {
+                method: 'POST',
+                //credentials: 'same-origin',
+                headers: {
+                    'Content-Type':'application/json',
+                    "X-CSRFToken": csrftoken,
+                }
+            })
+            .then((res) => {
+                var count = element.parentElement.parentElement.parentElement.querySelector('.subleft .subdetail label span');
+                var value = count.innerHTML;
+                value--;
+                count.innerHTML = value;
+                element.removeAttribute('id', 'subscribed');
+                element.innerHTML = 'Subscribe';
+                
+                element.setAttribute('onclick', 'watchsub(this)');
+            })
+            .catch(error => {
+                if(error.status > 200){
+                    throw(error);
+                }
+            })
+    }
+
+
+
+    const micbtn = document.getElementById('mic');
+    const input = document.querySelector('.search form input');
+    const searchbtn = document.querySelector('.search #search');
+    
+    micbtn.addEventListener('click', function(){
+        const speech = true;
+        window.SpeechRecognition = window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        
+        recognition.interimResults = true;
+    
+        recognition.addEventListener('result', e => {
+            const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            
+    
+            input.value = transcript;
+            console.log(transcript);
+        })
+    
+        if(speech == true){
+            recognition.start();
+        }
+        recognition.onspeechend = function() {
+            setTimeout(() => {
+                searchbtn.click();
+            }, 1000)
+        }
+    })
+
+
+
+    
+
+
+    function applyLazyLoading(){
+        $(document).ready(function(){
+            $('img[src="/static/images/placeholder.jpg').each(function(index, el) {
+                $(el).attr('src', $(el).data('real-src'));
+            });
+            $('img[src="/static/images/author.png').each(function(index, el) {
+                $(el).attr('src', $(el).data('real-src'));
+            });
+        }) 
+    }
+    var observer = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var img = entry.target;
+                
+                // Introduce a delay before loading the image
+                setTimeout(function() {
+                    img.src = img.getAttribute('data-real-src');
+                }, 1000); // Delay of 1000 milliseconds (1 second)
+                
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        root: null, // Use the viewport as the root
+        rootMargin: '0px', // No margin
+        threshold: 0.1 // 10% of the image visible triggers the loading
+    });
+    
+    // Select all images on the site
+    var allImages = document.querySelectorAll('img');
+    
+    // Observe each image
+    allImages.forEach(function(img) {
+        observer.observe(img);
+    });
+
+
+
+
+    function offlineFunc(){
+        if (!navigator.onLine) {
+            localStorage.setItem('previousUrl', window.location.href);
+            window.location.href = "{% url 'nointernet' %}";
+        }
+    }
+    function onlineFunc() {
+        if (navigator.onLine) {
+            var some = localStorage.getItem('previousUrl');
+            window.location = some;
+        }
+    }
+
+
+    window.addEventListener('offline', offlineFunc);
+    window.addEventListener('online', onlineFunc);
+
+
+
+    const savedTheme = localStorage.getItem('theme');
+    const themeToggle = document.getElementById('themebtn');
+    window.onload = function(){
+        if(localStorage.getItem('theme') !== 'dark'){
+            localStorage.setItem('theme', '');
+        }
+        if(localStorage.getItem('theme') == '')
+        {
+            themeToggle.querySelector('label').innerHTML = 'Appearance: Light Theme';
+        }
+        if (savedTheme == 'dark') {
+            document.body.classList.add(savedTheme);
+            themeToggle.querySelector('label').innerHTML = 'Appearance: Dark Theme';
+        }
+    }
+    
+
+    // Toggle theme on button click
+    
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        
+        // Store theme preference in localStorage
+        if (document.body.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+            themeToggle.querySelector('label').innerHTML = 'Appearance: Dark Theme';
+        } else {
+            themeToggle.querySelector('label').innerHTML = 'Appearance: Light Theme';
+            localStorage.setItem('theme', '');
+        }
+    });
+
+
+
+
+    {% comment %} var notificationbtn = document.getElementById('notification');
+    var notifbox = document.querySelector('.notificationbox');
+
+    notificationbtn.addEventListener('click', function(){
+        notifbox.classList.toggle('active');
+        if(profilecard.classList.contains('active')){
+            profilecard.classList.remove('active');
+        }
+        
+    }) {% endcomment %}
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var notificationbtn = document.getElementById('notification');
+        var notifbox = document.querySelector('.notificationbox');
+        var notificationLoader = document.querySelector('.notificationloader');
+        var headSection = document.querySelector('.notificationbox .head');
+        var middleSection = document.querySelector('.notificationbox .middle');
+    
+        var contentLoaded = false;
+    
+        notificationbtn.addEventListener('click', function(){
+            notifbox.classList.toggle('active');
+    
+            if (!contentLoaded) {
+                setTimeout(function(){
+                    notificationLoader.style.display = 'none';
+                    headSection.style.display = 'flex';
+                    middleSection.style.display = 'flex';
+                    contentLoaded = true;
+                }, 1000)
+            } else {
+                notificationLoader.style.display = 'flex';
+                headSection.style.display = 'none';
+                middleSection.style.display = 'none';
+                contentLoaded = false;
+            }
+            
+            // Hide profilecard if active
+            if (profilecard.classList.contains('active')) {
+                profilecard.classList.remove('active');
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+    if(profilebtn){
+        profilebtn.addEventListener('click', () => {
+            profilecard.classList.toggle('active');
+		if(notifbox.classList.contains('active')){
+		     notifbox.classList.remove('active');
+		}
+        })
+    }
+
+
+
+    var channelbtn = document.querySelector('#channelbtn');
+    var overlaybox = document.querySelector('.overlay');
+    var imgpreview = document.querySelector('.img-preview');
+    var filebtn = document.getElementById('filebtn');
+    var cancelbtn = document.querySelector('.uploadbox .bottom a');
+    var createchannelbtn = document.querySelector('.uploadbox .bottom button');
+    var channelsuccessoverlay = document.querySelector('.overlay .create');
+    var channelcreateform = document.getElementById('channelcreateform');
+
+    if(filebtn){
+        filebtn.addEventListener('change', function(e){
+            var file = filebtn.files[0];
+            var url = URL.createObjectURL(file);
+            var img = document.createElement('img');
+            imgpreview.innerHTML = `<img src=${url}>`;
+        })
+    }
+    if(cancelbtn){
+        cancelbtn.addEventListener('click', () => {
+            overlaybox.classList.toggle('active');
+            channelcreateform.clear();
+        })
+    }
+    
+    if(channelbtn){
+        channelbtn.addEventListener('click', function(){
+            channelbtn.classList.toggle('active');
+            overlaybox.classList.toggle('active');
+        })
+    }
+    
+    if(createchannelbtn){
+        createchannelbtn.addEventListener('click', function(){
+            channelsuccessoverlay.classList.toggle('active');
+    
+            setTimeout(() => {
+                channelsuccessoverlay.classList.toggle('active');
+                overlaybox.classList.toggle('active');
+            }, 2000);
+        })
+    }
+
+    var user = "{{request.user.id}}";
+    var id_channeluser = document.getElementById('id_channeluser');
+    if(user && id_channeluser){
+        id_channeluser.value = user;
+    }
+
+    channelcreateform.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        var id = channelcreateform.querySelector('#id_id');
+        var channelname = channelcreateform.querySelector('#id_channelname');
+        var channeluser = channelcreateform.querySelector('#id_channeluser').value;
+        var channelimg = channelcreateform.querySelector('#filebtn').files[0];
+        //var banner = channelcreateform.querySelector('#id_banner').files[0];
+        var url = channelcreateform.getAttribute('action');
+        var csrf = document.getElementsByName('csrfmiddlewaretoken');
+
+        var fd = new FormData();
+        fd.append('id', id.value);
+        fd.append('channelname', channelname.value);
+        fd.append('channeluser', channeluser);
+        fd.append('channelimg', channelimg);
+        //fd.append('banner', banner);
+        fd.append('csrfmiddlewaretoken', csrf[0].value);
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: fd,
+            success: function(res){
+                console.log(res);
+                setTimeout(function(){
+                    window.location.href = 'channel/'+id.value;
+                }, 2500)
+            },
+            error: function(err){
+                console.log(err);
+            },
+            contentType: false,
+            processData: false,
+            cache: false,
+        })
+    })
+
+
+    function subscribe(element) {
+        let name = element.dataset.channelslug;
+
+        console.log(name);
+
+        fetch(name +'/subscribe', {
+            method: 'PUT',
+        })
+        .then((res) => {
+            let label = element.parentElement.parentElement.querySelector('.channel-name label span');
+            var count = label.innerHTML;
+            count++;
+            label.innerHTML = count;
+            element.setAttribute('id', 'subscribed');
+            element.innerHTML = 'Subscribed';
+            element.insertAdjacentHTML('afterend', '<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M10,20h4c0,1.1-0.9,2-2,2S10,21.1,10,20z M20,17.35V19H4v-1.65l2-1.88v-5.15c0-2.92,1.56-5.22,4-5.98V3.96 c0-1.42,1.49-2.5,2.99-1.76C13.64,2.52,14,3.23,14,3.96l0,0.39c2.44,0.75,4,3.06,4,5.98v5.15L20,17.35z M19,17.77l-2-1.88v-5.47 c0-2.47-1.19-4.36-3.13-5.1c-1.26-0.53-2.64-0.5-3.84,0.03C8.15,6.11,7,7.99,7,10.42v5.47l-2,1.88V18h14V17.77z" class="style-scope yt-icon"></path></g></svg>');
+            element.setAttribute('onclick', 'unsubscribe(this)');
+        })
+        .catch(error => {
+            if(error.status >= 400){
+                console.log("error");
+            }
+        })
+    }
+    function unsubscribe(element) {
+        let name = element.dataset.channelslug;
+
+        fetch(name+'/unsubscribe', {
+            method: 'PUT',
+        })
+        .then((res) => {
+            
+            let label = element.parentElement.parentElement.querySelector('.channel-name label span');
+            var count = label.innerHTML;
+            count--;
+            label.innerHTML = count;
+            element.removeAttribute('id', 'subscribed');
+            element.innerHTML = 'Subscribe';
+            var h1 = element.parentElement.querySelector('svg');
+            var parent = element.parentElement;
+            parent.removeChild(h1);
+            element.setAttribute('onclick', 'subscribe(this)');
+        })
+        .catch(error => {
+            if(error.status >= 400){
+                console.log("error");
+            }
+        })
+    }
+{% comment %} 
+    function like_video(element){
+        var id = element.dataset.video_id;
+
+        fetch(id+'/like', {
+            method: 'PUT',
+        })
+        .then(res => {
+            var count = element.querySelector('label');
+            var value = count.innerHTML;
+            value++;
+            count.innerHTML = value;
+            element.querySelector('svg').innerHTML = `<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z" class="style-scope yt-icon"></path></g></svg>`;
+            element.setAttribute('onclick', 'unlike_video(this)');
+        })
+    }
+    function unlike_video(element){
+        var id = element.dataset.video_id;
+
+        fetch(id+'/unlike', {
+            method: 'PUT',
+        })
+        .then(res => {
+            var count = element.querySelector('label');
+            var value = count.innerHTML;
+            value--;
+            count.innerHTML = value;
+            element.querySelector('svg').innerHTML = `<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>`;
+            element.setAttribute('onclick', 'like_video(this)');
+        })
+    } {% endcomment %}
+
+    function some(){
+        var video = document.querySelectorAll('#videourl video');
+        for(let i=0; i<video.length; i++){
+            video[i].style.display = 'none';
+            video[i].onloadedmetadata = function(){ 
+                var hours = parseInt(this.duration / 3600);
+                var minutes = parseInt((this.duration % 3600) / 60);
+                var seconds = parseInt((this.duration % 3600) % 60);
+                if(seconds < 10){
+                    seconds = "0"+seconds;
+                }
+                if(minutes < 10 && minutes != 0){
+                    minutes = "0"+minutes;
+                } else if(minutes < 10 && minutes == 0) 
+                {
+                    minutes = minutes;
+                }
+                if (hours<=0){
+                    this.parentElement.querySelector('p').innerHTML = minutes+":"+seconds;
+                } else {
+                    this.parentElement.querySelector('p').innerHTML = hours+":"+minutes+":"+seconds;
+                }
+            }
+        }
+        for(let i=0; i<video.length; i++){
+            video[i].addEventListener('ended', function(){
+                console.log('ended');
+            })
+        }
+    }
+    some();
+
+    
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function likecomment(element){
+        let video_id = element.parentElement.parentElement.parentElement.dataset.video;
+        let comment_id = element.parentElement.parentElement.parentElement.dataset.comment;
+        
+        fetch(video_id+'/'+comment_id+'/like', {
+            method: 'PUT',
+        })
+        .then((res) => {
+            var svg = `<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z" class="style-scope yt-icon"></path></g></svg>`;
+            var count = element.querySelector('label');
+            var value = count.innerHTML;
+            value++;
+            count.innerHTML = value;
+            element.innerHTML = svg + `<label>${value}</label>`;
+            element.setAttribute('onclick', 'unlikecomment(this)');
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+    function unlikecomment(element){
+        let video_id = element.parentElement.parentElement.parentElement.dataset.video;
+        let comment_id = element.parentElement.parentElement.parentElement.dataset.comment;
+        
+        fetch(video_id+'/'+comment_id+'/unlike', {
+            method: 'PUT',
+        })
+        .then((res) => {
+            var svg = `<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11H3v10h4h1h9.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z M7,20H4v-8h3V20z M19.98,13.17l-1.34,6 C18.54,19.65,18.03,20,17.43,20H8v-8.61l5.6-6.06C13.79,5.12,14.08,5,14.38,5c0.26,0,0.5,0.11,0.63,0.3 c0.07,0.1,0.15,0.26,0.09,0.47l-1.52,4.94L13.18,12h1.35h4.23c0.41,0,0.8,0.17,1.03,0.46C19.92,12.61,20.05,12.86,19.98,13.17z" class="style-scope yt-icon"></path></g></svg>`;
+            var count = element.querySelector('label');
+            var value = count.innerHTML;
+            value--;
+            count.innerHTML = value;
+            element.innerHTML = svg + `<label>${value}</label>`;
+            element.setAttribute('onclick', 'likecomment(this)');
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    function deletecommentfun(element){
+        var comment_id = element.parentElement.parentElement.parentElement.querySelector('.publicdetail .likescon').dataset.comment;
+        var video_id = element.parentElement.parentElement.parentElement.querySelector('.publicdetail .likescon').dataset.video;
+        fetch(video_id+"/"+comment_id+'/delete', {
+            method: 'PUT',
+        })
+        .then((res) => {
+            var commentlabel = element.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.commentcount label span');
+            var value = commentlabel.innerHTML;
+            value--;
+            commentlabel.innerHTML = value;
+            var comment = element.parentElement.parentElement.parentElement;
+            comment.style.display = 'none';
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
+
+    
+    
+    
+    const menbtn = document.querySelector('.nav .inner .left .menu button');
+    const overlay = document.querySelector('.hiddensidebar');
+    const hiddenclose = document.getElementById('hiddensidebarclose');
+    const overlayclose = document.getElementById('closebtn');
+    
+    
+    if(menbtn){
+        menbtn.addEventListener('click', function(){
+            overlay.classList.toggle('active');
+            hiddenclose.classList.toggle('active');
+            overlayclose.classList.toggle('active');
+        })
+    }
+    if(hiddenclose){
+        hiddenclose.addEventListener('click', function(){
+            overlay.classList.toggle('active');
+            overlayclose.classList.toggle('active');
+            hiddenclose.classList.toggle('active');
+        })
+    }
+    if(overlayclose){
+        overlayclose.addEventListener('click', function(){
+            overlay.classList.toggle('active');
+            overlayclose.classList.toggle('active');
+            hiddenclose.classList.toggle('active');
+        })
+    }
+        
+    
+    
+        
+    
+        
+    
+    
+        var notificationbtn = document.getElementById('notification');
+        var notifbox = document.querySelector('.notificationbox');
+        var profilebtn = document.getElementById('profilebtn');
+        var profilecard = document.querySelector('.profilecard');  
+        if(profilebtn){
+            profilebtn.addEventListener('click', () => {
+                profilecard.classList.toggle('active');
+            if(notifbox.classList.contains('active')){
+                 notifbox.classList.remove('active');
+            }
+            })
+        }
+
+
+    
+    
+</script>
+
+<!-- <script>
+    var isLoading = false;
+    var currentPage = 1;
+
+    function loadMorePosts(){
+        if(isLoading) return;
+        isLoading = true;
+
+        $.ajax({
+            url: '/get_videos',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                page: currentPage
+            },
+            success: function(res){
+                var $coninner = $('.main .main-scroll .inner');
+                if(res.videos){
+                    res.videos.forEach(function(video){
+                        $coninner.append(
+                            `
+                                <div class="video">
+                                    <a href="">
+                                        <div class="video-img">
+                                            <img draggable="false" src="{% static 'images/placeholder.jpg' %}" data-real-src="${video.image}">
+                                            <span id="videourl">
+                                                <p>${video.duration}</p>
+                                            </span>
+                                        </div>
+                                        <div class="video-detail">
+                                            <div class="video-left">
+                                                <div class="video-author-img">
+                                                    {% if video.author == request.user %}
+                                                        <a href=""><img src="{% static 'images/author.png' %}" data-real-src="{{request.user.channeluser.channelimg.url}}"></a>
+                                                    {% else %}
+                                                        <a href=""><img src="{% static 'images/author.png' %}" data-real-src="${video.author_image}"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="video-right">
+                                                <h3>${video.title}</h3>
+                                                <div class="channel">
+                                                    {% if video.author == request.user %}
+                                                        <a href="">{{request.user.channeluser.channelname}}</a>
+                                                    {% else %}
+                                                        <a href="">${video.author}</a>
+                                                    {% endif %}
+                                                    {% if video.author.channeluser.subscribers.all.count >= 3 %}
+                                                        <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M9.8,17.3l-4.2-4.1L7,11.8l2.8,2.7L17,7.4 l1.4,1.4L9.8,17.3z" class="style-scope yt-icon"></path></g></svg>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="views">
+                                                    <span>${video.views} views</span>
+                                                    <label>.</label>
+                                                    <span>${video.published}</span>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            `
+                        )
+                    })
+                }
+                
+                applyLazyLoading();
+                currentPage++;
+                isLoading = false;
+            },
+            error: function(){
+                isLoading = false;
+            }            
+        })
+    }
+
+
+    var $container = $('.main .main-scroll');
+    $container.on('scroll', function() {
+        if ($container.scrollTop() + $container.innerHeight() >= $container[0].scrollHeight - 200) {
+            loadMorePosts();
+        }
+    });
+
+    $(document).ready(function(){
+        loadMorePosts();
+        applyLazyLoading();
+    })
+</script>  -->
+
+
+
+
+
+
+
+<script>
+    const searchInput = document.getElementById('results');
+    const suggestionsDropdown = document.querySelector('#suggestions ul');
+    searchInput.addEventListener('input', function() {
+        const userInput = searchInput.value;
+
+        $.ajax({
+            url: '/video-title-suggestions/',
+            data: { input: userInput },
+            success: function(data) {
+                suggestionsDropdown.innerHTML = '';
+
+                data.suggestions.forEach(function(suggestion) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = 'watch/'+suggestion.id; // Set the href attribute for the anchor
+                    a.textContent = suggestion.title.slice(0, 40)+'...'; // Set the text content of the anchor
+                    li.appendChild(a); // Append the anchor to the list item
+                    suggestionsDropdown.appendChild(li); // Append the list item to the container
+                });
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>

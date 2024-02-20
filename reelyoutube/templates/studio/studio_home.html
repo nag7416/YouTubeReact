@@ -1,0 +1,88 @@
+{% extends 'studio/studio.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}<title>Channel Dashboard - YouTube</title>{% endblock %}
+{% block studio %}
+
+<style>
+    .main .main-scroll .inner .videobtn
+    {
+        position: none;
+    }
+    .main-scroll .inner .head 
+    {
+        position: sticky;
+        top: 0;
+        left: 0;
+        background: white;
+    }
+    .main-scroll .inner .heads
+    {
+        height: calc(100vh - 160px);
+        background: ;
+    }
+
+</style>
+
+<div class="inner">
+    <h5>Channel Content</h5>
+    {% comment %} <div class="videobtn">
+        <button>
+            <a href="#">
+                Videos
+            </a>
+        </button>
+    </div> {% endcomment %}
+    <div class="head">
+        <div class="video">Video</div>
+        <div class="visibility">Visibility</div>
+        <div class="restrictions">Restrictions</div>
+        <div class="date">Date</div>
+        <div class="views">Views</div>
+        <div class="comments">Comments</div>
+        <div class="likes">Likes</div>
+    </div>
+    <div class="heads">
+        {% for video in videos %}
+            <div class="inners">
+                <div class="video">
+                    <form action="{% url 'watch' video.id %}">
+                        <button>
+                            <div class="video-img">
+                                <a href="#"><img src="{{video.image.url}}"></a>
+                            </div>
+                            <div class="video-detail">
+                                <h3>{{video.title}}</h3>
+                                <p>{{video.description}}</p>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+                <div class="visibility">{{video.visibility}}</div>
+                <div class="restrictions">None</div>
+                <div class="date" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">{{video.published | date:"M d, Y"}} <span style="margin-top: 4px;">Published</span></div>
+                <div class="views"><span id="views">{{video.watched}}</span></div>
+                
+                <div class="comments commentscount">{{count}}</div>
+                
+                <div class="likes">
+                    <span>{{video.liked.all.count}} likes</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+</div>
+
+<script>
+window.onload = function(){
+    var json2 = "{{json1}}";
+    var tempstr = JSON.parse(json2.replace(/&quot;/g,'"'));
+    var commentscount = document.querySelectorAll('.commentscount');
+    for(let i=0; i<commentscount.length; i++){
+        commentscount[i].innerHTML = tempstr['values'][i];
+    }
+}
+</script>
+{% endblock %}

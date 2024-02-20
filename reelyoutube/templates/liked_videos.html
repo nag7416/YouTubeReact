@@ -1,0 +1,302 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+{% load custom_filters %}
+{% block title %}<title>({{totalvideos}}) Liked videos - YouTube</title>{% endblock %}
+
+<style>
+
+
+    body.dark .watchlater .left label
+    {
+        color: lightgray;
+    }
+    body.dark .watchlater .left .videosstats
+    {
+        color: #aaa;
+    }
+    .watchlater .left .videosstats label
+    {
+        font-size: 14px; 
+        line-height: normal; 
+        margin-bottom: 0; 
+        margin: 0 5px; 
+        color: #606060;
+    }
+    body.dark .watchlater .left .videosstats label
+    {
+        color: #aaa;
+    }
+    body.dark .watchlater .left .author
+    {
+        border-top: .5px solid #1f1f1f;
+    }
+    body.dark .counter 
+    {
+        color: white;
+    }
+    body.dark .authorright
+    {
+        color: white;
+    }
+    body.dark .vs .v .vdetail h4
+    {
+        color: #f1f1f1;
+    }
+    body.dark .vs .v .vdetail 
+    {
+        color: #aaa;
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+    .watchlater 
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+    }
+    .watchlater .left 
+    {
+        width: 40%;
+        height: calc(100vh - 77px);
+        min-width: 312px;
+        max-width: 312px;
+        background: ;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .watchlater .left .topimg 
+    {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 5px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    .watchlater .left label 
+    {
+        display: block;
+        margin-bottom: 8px;
+        word-break: break-word;
+        color: #0f0f0f;
+        overflow: hidden;
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 400;
+    }
+    .watchlater .left .topimg img 
+    {
+        width: 100%;
+    }
+    .watchlater .left .videosstats
+    {
+        color: #606060;
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+    }
+    .watchlater .left p 
+    {
+        width: auto;
+        background: rgba(0,0,0,0.05);
+        color: #606060;
+        border-radius: 2px;
+        display: block;
+        padding: 3px 4px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 12px;
+        letter-spacing: .35px;
+        margin: 10px 0 15px 0px;
+    }
+    
+    .watchlater .left .author 
+    {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-top: .5px solid lightgray;
+    }
+    .watchlater .left .author .authorleft
+    {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 10px;
+    }
+    .watchlater .left .author .authorleft img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    
+    
+    
+    .watchlater .right 
+    {
+        width: 70%;
+        background: ;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .watchlater .right .vs 
+    {
+        width: 100%;
+        display: flex;
+        height: calc(100vh - 77px);
+        overflow-y: scroll;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 20px;
+    }
+    .watchlater .right .vs::-webkit-scrollbar 
+    {
+        width: 0;
+    }
+    .watchlater .right .vs .v 
+    {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 8px;
+        padding: 5px 0;
+    }
+    .vs .v .counter 
+    {
+        width: 25px;
+        min-width: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .vs .v .vimg 
+    {
+        width: 120px;
+        min-width: 120px;
+        height: 67px;
+        overflow: hidden;
+        border-radius: 8px;
+        position: relative;
+    }
+    .vs .v .vimg label
+    {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        font-size: 11px;
+        padding: 3px 5px;
+    }
+    .vs .v .vimg img 
+    {
+        width: 100%;
+        height: 100%;
+    }
+    .vs .v .vdetail 
+    {
+        text-align: left;
+        margin-left: 10px;
+        height: 67px;
+    }
+    .vs .v .vdetail h4
+    {
+        margin-bottom: 5px;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 500;
+        max-height: 44px;
+        overflow: hidden;
+    }
+    .vs .v .vdetail a 
+    {
+        max-height: 20px;
+        overflow-y: hidden;
+        color: #606060;
+        text-decoration: none;
+    }
+</style>
+
+{% include 'sidebar.html' %}
+{% include 'hiddensidebar.html' %}
+
+<div class="main-scroll" style="overflow-y: hidden;">
+    <div class="inner">
+        <div class="watchlater">
+            <div class="left">
+                {% if likedfirst %}
+                    {% for vs in likedfirst %}
+                        <a href="{% url 'watch' vs.id %}">
+                                <div class="topimg">
+                                    <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{vs.image.url}}">
+                                </div>
+                            </a>
+                    {% endfor %}
+                {% else %}
+                    
+                        <button style="border: none; outline: none; background: none;">
+                            <div class="topimg">
+                                <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{% static 'images/placeholder.jpg' %}">
+                            </div>
+                        </button>
+                    
+                {% endif %}
+                <label>Liked videos</label>
+                <div class="videosstats">
+                    <span style="display: flex; align-items: center;">{{totalvideos}} videos &bull; <label style="">{{viewcount|format_views_as_K}} views</label> &bull; Updated today</span>
+                </div>
+                <p>Private</p>
+                <div class="author">
+                    <div class="authorleft">
+                        <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{request.user.channeluser.channelimg.url}}">
+                    </div>
+                    <div class="authorright">
+                        {{request.user.channeluser.channelname}}
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="vs">
+                    {% for video in likedvideos %}
+                        <div class="v">
+                            <a href="{% url 'watch' video.id %}">
+                            <div class="counter">
+                                {{forloop.counter}}
+                            </div>
+                            <div class="vimg">
+                                <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}">
+                                <label>{{video.duration}}</label>
+                            </div>
+                            <div class="vdetail">
+                                <h4>{{video.title}}</h4>
+                                {{video.author.channeluser.channelname}}
+                            </div>
+                        </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

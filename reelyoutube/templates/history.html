@@ -1,0 +1,213 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block content %}
+
+<style>
+
+
+    @media screen and (max-width: 796px){
+        .main .main-scroll .inner
+        {
+            width: 100%;
+        }
+    }
+    @media screen and (min-width: 796px){
+        .main .main-scroll .inner
+        {
+            width: 80%;
+        }
+    }
+
+    body.dark #watchhistoryh5
+    {
+        color: white;
+    }
+    body.dark .explorecon .explore .rightdetail h3
+    {
+        color: #f1f1f1;
+    }
+    body.dark .explorecon .explore .rightdetail .author a
+    {
+        color: #aaa;
+    }
+    body.dark .explorecon .explore .rightdetail .author span
+    {
+        color: #aaa;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    .explores .explore .leftimg
+    {
+        position: relative;
+    }
+    .explores .explore .leftimg span
+    {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        z-index: 100;
+        background: rgba(0,0,0,0.9);
+        color: white;
+        padding: 2px 3px;
+        border-radius: 2px;
+    }
+    #watchhistoryh5
+    {
+        font-size: 17px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+    .explorecon 
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .explorecon .explore 
+    {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .explorecon .explores 
+    {
+        width: 100%;
+        max-width: 800px;
+        margin-bottom: 8px;
+    }
+    .explorecon form button
+    {
+        text-align: left;
+    }
+    .explorecon .explore .leftimg 
+    {
+        width: 250px;
+        min-width: 250px;
+    }
+    .explorecon .explore .leftimg img 
+    {
+        width: 100%;
+    }
+    
+    .explorecon .explore .rightdetail 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding-left: 16px;
+    }
+    .explorecon .explore .rightdetail h3 
+    {
+        color: #030303;
+        font-size: 19px;
+        line-height: 26px;
+        font-weight: 400;
+        max-height: 3em;
+        overflow: hidden;
+    }
+    .explorecon .explore .rightdetail .author
+    {
+        display: flex;
+        align-items: center;
+        margin: 3px 0;
+    }
+    
+    .explorecon .explore .rightdetail .author a
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 18px;
+        overflow: hidden;
+        display: flex;
+        color: #606060;
+        text-decoration: none;
+    }
+    
+    .explorecon .explore .rightdetail .author span
+    {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 18px;
+        overflow: hidden;
+        display: flex;
+        color: #606060;
+        text-decoration: none;
+        margin-left: 5px;
+    }
+    .explorecon .explore .rightdetail p 
+    {
+        color: #606060;
+        padding-top: 5px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        max-height: 3.3em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+
+
+{% include 'sidebar.html' %}
+{% include 'hiddensidebar.html' %}
+
+
+{% block title %}<title>History - YouTube</title>{% endblock %}
+<div class="main-scroll">
+    <div class="inner">
+        <div class="explorecon">
+            <h5 id="watchhistoryh5">Watch history</h5>
+
+
+
+            {% if hisvideos %}
+                {% for hisvideo in hisvideos %}
+                        <div class="explores">
+                            <div class="explore">
+                                <a href="">
+                                    <div class="leftimg">
+                                        <img src="{% static 'images/placeholder.jpg' %}" data-real-src="{{hisvideo.his_video.image.url}}">
+                                        <span>
+                                            <p>{{hisvideo.his_video.duration}}</p>
+                                        </span>
+                                    </div>
+                                    <div class="rightdetail">
+                                        <h3>{{hisvideo.his_video.title}}</h3>
+                                        <div class="author">
+                                            <a href="">{{hisvideo.his_video.author.channeluser.channelname}}</a>
+                                            <span>&nbsp;&bull;<span style="margin: 0 5px;">{{hisvideo.his_video.views|format_views_as_K}} views</span> &bull; <span>{{hisvideo.his_video.published|time_ago}}</span></span>
+                                        </div>
+                                        <p>{{video.description}}</p>
+                                    </div>
+                                </a>
+                            </div>        
+                        </div>
+                {% endfor %}
+            {% else %}
+                <p style="width: 100%; text-align: center;">No Watch History Found</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

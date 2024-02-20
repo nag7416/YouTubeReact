@@ -1,0 +1,284 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+
+{% block content %}
+{% include 'sidebar.html' %}
+{% include 'hiddensidebar.html' %}
+
+<style>
+    .main .main-scroll .inner 
+    {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(318px, 1fr));
+        grid-template-rows: auto;
+        grid-column-gap: 20px;
+        grid-row-gap: 25px;
+        padding: 20px;
+    }
+
+    nav .center .search
+    {
+        position: relative;
+    }
+    nav .center .search #suggestions
+    {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 8px;
+        overflow: hidden;
+        z-index: 1000;
+    }
+    nav .center .search #suggestions ul 
+    {
+        list-style: none;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav .center .search #suggestions ul li 
+    {
+        list-style: none;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav .center .search #suggestions ul li a
+    {
+        width: 100%;
+        padding: 6px 2px;
+        padding-left: 10px;
+        color: black;
+    }
+    nav .center .search #suggestions ul li a:hover 
+    {
+        background: whitesmoke;
+    }
+
+
+</style>
+
+<div class="main-scroll">
+
+    <div class="inner">
+
+        {% if videos.count == 1 %}
+            {% for video in videos %}
+                    <div class="video">
+                        <a href="{% url 'watch' video.id %}">
+                            <div class="video-img">
+                                <img draggable="false" src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}">
+                                <span id="videourl">
+                                    <p>{{video.duration}}</p>
+                                </span>
+                            </div>
+                            <div class="video-detail">
+                                <div class="video-left">
+                                    <div class="video-author-img">
+                                        {% if video.author == request.user %}
+                                            <a href="{% url 'channel' request.user.channeluser.id %}"><img src="{% static 'images/author.png' %}" data-real-src="{{request.user.channeluser.channelimg.url}}"></a>
+                                        {% else %}
+                                            <a href="{% url 'author_channel' video.author.channeluser.channelname %}"><img src="{% static 'images/author.png' %}" data-real-src="{{video.author.channeluser.channelimg.url}}"></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="video-right">
+                                    <h3>{{video.title}}...</h3>
+                                    <div class="channel">
+                                        {% if video.author == request.user %}
+                                            <a href="{% url 'channel' request.user.channeluser.id %}">{{request.user.channeluser.channelname}}</a>
+                                        {% else %}
+                                            <a href="{% url 'author_channel' video.author.channeluser.channelslug %}">{{video.author.channeluser.channelname}}</a>
+                                        {% endif %}
+                                        {% if video.author.channeluser.subscribers.all.count >= 3 %}
+                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M9.8,17.3l-4.2-4.1L7,11.8l2.8,2.7L17,7.4 l1.4,1.4L9.8,17.3z" class="style-scope yt-icon"></path></g></svg>
+                                        {% endif %}
+                                    </div>
+                                    <div class="views">
+                                        <span>{{ video.views|format_views_as_K }} views</span>
+                                        <label>.</label>
+                                        <span>{{video.published|time_ago}}</span>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            {% endfor %}
+
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            
+        {% elif videos.count > 1 and videos.count < 4 %}
+            {% for video in videos %}
+                    <div class="video">
+                        <a href="{% url 'watch' video.id %}">
+                            <div class="video-img">
+                                <img draggable="false" src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}">
+                                <span id="videourl">
+                                    <p>{{video.duration}}</p>
+                                </span>
+                            </div>
+                            <div class="video-detail">
+                                <div class="video-left">
+                                    <div class="video-author-img">
+                                        {% if video.author == request.user %}
+                                            <a href="{% url 'channel' request.user.channeluser.id %}"><img src="{% static 'images/author.png' %}" data-real-src="{{request.user.channeluser.channelimg.url}}"></a>
+                                        {% else %}
+                                            <a href="{% url 'author_channel' video.author.channeluser.channelname %}"><img src="{% static 'images/author.png' %}" data-real-src="{{video.author.channeluser.channelimg.url}}"></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="video-right">
+                                    <h3>{{video.title}}...</h3>
+                                    <div class="channel">
+                                        {% if video.author == request.user %}
+                                            <a href="{% url 'channel' request.user.channeluser.id %}">{{request.user.channeluser.channelname}}</a>
+                                        {% else %}
+                                            <a href="{% url 'author_channel' video.author.channeluser.channelslug %}">{{video.author.channeluser.channelname}}</a>
+                                        {% endif %}
+                                        {% if video.author.channeluser.subscribers.all.count >= 3 %}
+                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M9.8,17.3l-4.2-4.1L7,11.8l2.8,2.7L17,7.4 l1.4,1.4L9.8,17.3z" class="style-scope yt-icon"></path></g></svg>
+                                        {% endif %}
+                                    </div>
+                                    <div class="views">
+                                        <span>{{ video.views|format_views_as_K }} views</span>
+                                        <label>.</label>
+                                        <span>{{video.published|time_ago}}</span>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            {% endfor %}
+
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            <div class="video"></div>
+            
+        {% else %}
+            {% for video in videos %}
+                <div class="video">
+                    <a href="{% url 'watch' video.id %}">
+                        <div class="video-img">
+                            <img draggable="false" src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}" loading="lazy">
+                            <span id="videourl">
+                                <p>{{video.duration}}</p>
+                            </span>
+                        </div>
+                        <div class="video-detail">
+                            <div class="video-left">
+                                <div class="video-author-img">
+                                    {% if video.author == request.user %}
+                                        <a href="{% url 'channel' request.user.channeluser.id %}">
+                                            <img src="{% static 'images/author.png' %}" data-real-src="{{request.user.channeluser.channelimg.url}}">
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'author_channel' video.author.channeluser.channelname %}">
+                                            <img src="{% static 'images/author.png' %}" data-real-src="{{video.author.channeluser.channelimg.url}}">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="video-right">
+                                <h3>{{video.title}}...</h3>
+                                <div class="channel">
+                                    {% if video.author == request.user %}
+                                        <a href="{% url 'channel' request.user.channeluser.id %}">{{request.user.channeluser.channelname}}</a>
+                                    {% else %}
+                                        <a href="{% url 'author_channel' video.author.channeluser.channelslug %}">{{video.author.channeluser.channelname}}</a>
+                                    {% endif %}
+                                    {% if video.author.channeluser.subscribers.all.count >= 3 %}
+                                        <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M9.8,17.3l-4.2-4.1L7,11.8l2.8,2.7L17,7.4 l1.4,1.4L9.8,17.3z" class="style-scope yt-icon"></path></g></svg>
+                                    {% endif %}
+                                </div>
+                                <div class="views">
+                                    <span>{{ video.views|format_views_as_K }} views</span>
+                                    <label>.</label>
+                                    <span>{{video.published|time_ago}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            {% for video in videos %}
+                <div class="video">
+                    <a href="{% url 'watch' video.id %}">
+                        <div class="video-img">
+                            <img id="image" draggable="false" src="{% static 'images/placeholder.jpg' %}" data-real-src="{{video.image.url}}" loading="lazy">
+                            <span id="videourl">
+                                <p>{{video.duration}}</p>
+                            </span>
+                        </div>
+                        <div class="video-detail">
+                            <div class="video-left">
+                                <div class="video-author-img">
+                                    {% if video.author == request.user %}
+                                        <a href="{% url 'channel' request.user.channeluser.id %}">
+                                            <img src="{% static 'images/author.png' %}" data-real-src="{{request.user.channeluser.channelimg.url}}">
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'author_channel' video.author.channeluser.channelname %}">
+                                            <img src="{% static 'images/author.png' %}" data-real-src="{{video.author.channeluser.channelimg.url}}">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="video-right">
+                                <h3>{{video.title}}...</h3>
+                                <div class="channel">
+                                    {% if video.author == request.user %}
+                                        <a href="{% url 'channel' request.user.channeluser.id %}">{{request.user.channeluser.channelname}}</a>
+                                    {% else %}
+                                        <a href="{% url 'author_channel' video.author.channeluser.channelslug %}">{{video.author.channeluser.channelname}}</a>
+                                    {% endif %}
+                                    {% if video.author.channeluser.subscribers.all.count >= 3 %}
+                                        <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none;"><g class="style-scope yt-icon"><path d="M12,2C6.5,2,2,6.5,2,12c0,5.5,4.5,10,10,10s10-4.5,10-10C22,6.5,17.5,2,12,2z M9.8,17.3l-4.2-4.1L7,11.8l2.8,2.7L17,7.4 l1.4,1.4L9.8,17.3z" class="style-scope yt-icon"></path></g></svg>
+                                    {% endif %}
+                                </div>
+                                <div class="views">
+                                    <span>{{ video.views|format_views_as_K }} views</span>
+                                    <label>.</label>
+                                    <span>{{video.published|time_ago}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            
+        {% endif %}
+    </div>
+        
+</div>
+
+
+
+
+
+
+<script>
+</script>
+
+{% endblock %}

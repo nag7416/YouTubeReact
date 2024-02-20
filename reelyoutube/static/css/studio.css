@@ -1,0 +1,831 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+nav 
+{
+    width: 100%;
+    height: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    border-bottom: .5px solid rgb(228, 227, 227);
+    z-index: 10;
+}
+nav .inner 
+{
+    width: 100%;
+    height: 100%;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav .inner .left 
+{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+nav .inner .left .menu
+{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+nav .inner .left .menu button
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+}
+nav .inner .left .menu button svg
+{
+    width: 24px;
+    height: 24px;
+}
+
+nav .inner .left .logo 
+{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 18px 14px 18px 16px;
+    flex: none;
+}
+nav .inner .left .logo svg
+{
+    width: 90px;
+    height: 20px;
+}
+nav .inner .left .logo a 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
+nav .inner .center 
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 0 1 728px;
+    min-width: 0px;
+}
+nav .inner .center .search 
+{
+    width: 85%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+nav .inner .center .search input  
+{
+    width: 100%;
+    height: 100%;
+    border: none;
+    border: .5px solid lightgray;
+    border-right: none;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    font-size: 16px;
+    font-weight: 400;
+}
+nav .inner .center .search input:focus
+{
+    box-shadow: inset 0px 0px 2px dodgerblue,
+                inset 0 0 2px dodgerblue;
+}
+nav .inner .center .search #search
+{
+    width: 64px;
+    min-width: 64px;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: .5px solid lightgray;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+nav .inner .center .search #search svg 
+{
+    width: 24px;
+    height: 24px;
+}
+nav .inner .center #mic
+{
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    cursor: pointer;
+}
+nav .inner .center #mic svg 
+{
+    width: 24px;
+    height: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nav .inner .right 
+{
+    display: flex;
+    align-items: center;
+}
+nav .inner .right .links 
+{
+
+}
+nav .inner .right .links ul 
+{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+nav .inner .right .links ul li 
+{
+    position: relative;
+}
+nav .inner .right .links ul li .link 
+{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+}
+
+nav .inner .right .links ul li .link button
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: none;
+
+}
+nav .inner .right .links ul li .link button a 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+nav .inner .right .links ul li .link button a svg 
+{
+    width: 24px;
+    height: 24px;
+}
+nav .inner .right .links ul li .link button a img 
+{
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+
+nav .inner .right .links ul li .profilecard
+{
+    position: absolute;
+    background-color: white;
+    right: 40px;
+    top: 5px;
+    border-radius: 3px;
+    width: 300px;
+    height: 708px;
+    z-index: 1000;
+    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    visibility: hidden;
+    opacity: 0;
+}
+.profilecard::-webkit-scrollbar
+{
+    width: 0;
+}
+nav .inner .right .links ul li .profilecard.active 
+{
+    visibility: visible;
+    opacity: 1;
+}
+.profilecard .inner
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+}
+.profilecard .inner .name 
+{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    border-bottom: .5px solid rgb(224, 223, 223);
+    padding: 20px 10px;
+}
+.profilecard .inner .name .left
+{
+    min-width: 55px;
+}
+.profilecard .inner .name .left .authorimg 
+{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.profilecard .inner .name .left .authorimg img 
+{
+    width: 100%;
+}
+.profilecard .inner .name .right 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.profilecard .inner .name .right h3 
+{
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    height: 23px;
+    overflow: hidden;
+}
+.profilecard .inner .name .right label 
+{
+    font-size: 14px;
+    font-weight: 400;
+    color: dodgerblue;
+}
+
+
+.profilecard .options
+{
+    width: 100%;
+    background: white;
+    height: calc(100% - 75px);
+    overflow-y: scroll;
+}
+.profilecard .options::-webkit-scrollbar
+{
+    width: 0;
+}
+
+
+.profilecard .options .option 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px 0;
+    border-bottom: .5px solid rgb(224, 223, 223);
+}
+.profilecard .options .option ul 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.profilecard .options .option ul li 
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.profilecard .options .option ul li button
+{
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+}
+.profilecard .options .option ul li button a 
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+.profilecard .options .option ul li button a label 
+{
+    pointer-events: none;
+}
+.profilecard .options .option ul li button a svg 
+{
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+.profilecard .options .option ul li button a:hover
+{
+    background: whitesmoke;
+}
+
+
+
+
+
+
+
+
+
+.main 
+{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.main .side 
+{
+    width: 71px;
+    height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* border-right: .5px solid lightgray; */
+    transition: .3s;
+}
+.main .side.active 
+{
+    width: 240px;
+    transition: .3s;
+}
+.main .side .link
+{
+    width: 71px;
+    height: 71px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.main .side .link .img 
+{
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: .3s;
+    transform-origin: top-left;
+}
+.main .side.active .link .img
+{
+    transform-origin: top-left;
+}
+.main .side.active .link 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 100%;
+}
+.main .side.active .link .img 
+{
+    width: 70px;
+    height: 70px;
+    margin: 20px 0;
+}
+.main .side .link .img img 
+{
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+.main .side .link .img a 
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.main .side .link .img:hover a 
+{
+    display: flex;
+}
+
+
+.main .side .links 
+{
+    width: 100%;
+}
+.main .side .links ul 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.main .side .links ul li 
+{
+    width: 100%;
+    height: 56px;
+    border-left: 4px solid white;
+}
+.main .side .links ul li.active 
+{
+    border-left: 4px solid crimson;
+}
+.main .side .links ul li.active svg 
+{
+    fill: crimson;
+}
+.main .side .links ul li.active label 
+{
+    color: crimson;
+}
+.main .side .links ul li div label 
+{
+    display: none;
+    pointer-events: none;
+}
+.main .side.active .links ul li div label
+{
+    display: flex;
+}
+
+
+.main .side .links ul li .url 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.main .side .links ul li .url a 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main .side .links ul li .url a svg
+{
+    width: 1.4em;
+    height: 1.4em;
+}
+.main .side.active ul li .url a svg 
+{
+    margin: 10px 15px;
+    width: 2em;
+    height: 2em;
+}
+.main .side.active .links ul li label 
+{
+    width: 100%;
+}
+.main .side.active .links ul li a
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+
+
+
+
+
+
+.main .main-scroll 
+{
+    width: 100%;
+    height: calc(100vh - 56px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: scroll;
+}
+.main .main-scroll::-webkit-scrollbar
+{
+    width: 0;
+}
+.main .main-scroll .inner 
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+}
+.main .main-scroll .inner h5 
+{
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 32px;
+    left: 0;
+    padding-left: 32px;
+    padding-top: 23px;
+    position: sticky;
+    white-space: nowrap;
+}
+.main .main-scroll .inner .videobtn
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: .5px solid lightgray;
+    margin-top: 10px;
+    position: sticky;
+    left: 0;
+    top: 0px;
+    background: white;
+}
+.main .main-scroll .inner .videobtn button
+{
+    margin-left: 10px;
+    padding: 15px 20px;
+    background: none;
+    border: none;
+}
+.main .main-scroll .inner .videobtn button a 
+{
+    text-decoration: none;
+    color: black;
+}
+
+
+
+.main-scroll .inner .head 
+{
+    width: 100%;
+    height: 50px;
+    border-bottom: .5px solid lightgray;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.head div 
+{
+    font-size: 13px;
+}
+.head .video 
+{
+    width: 40%;
+    min-width: 300px;
+    padding-left: 15px;
+}
+.head .visibility 
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.head .restrictions
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.head .date 
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.head .views
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.head .comments 
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.head .likes 
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.heads 
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.heads .inners
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.heads .inners div
+{
+    font-size: 13px;
+}
+.heads .inners .video
+{
+    width: 40%;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.heads .inners .video form button
+{
+    display: flex;
+    align-items: flex-start;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.heads .inners .video form button .video-img 
+{
+    width: 120px;
+    min-width: 120px;
+    height: 68px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.heads .inners .video .video-img img 
+{
+    width: 100%;
+}
+.heads .inners .video .video-detail 
+{
+    text-align: left;
+    height: 100%;
+    margin-left: 6px;
+}
+.heads .inners .video .video-detail h3 
+{
+    max-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.heads .inners .video .video-detail p 
+{
+    max-height: 33px;
+    overflow: hidden;
+}
+
+
+
+.heads .inners .visibility
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.heads .inners .restrictions
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.heads .inners .date
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.heads .inners .views
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.heads .inners .comments
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.heads .inners .likes
+{
+    width: 10%;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

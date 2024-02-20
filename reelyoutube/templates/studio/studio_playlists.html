@@ -1,0 +1,118 @@
+{% extends 'studio/studio.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}<title>Channel Playlists - YouTube</title>{% endblock %}
+{% block studio %}
+
+<style>
+    .main .main-scroll .inner .videobtn
+    {
+        position: none;
+    }
+    .main-scroll .inner .head 
+    {
+        position: sticky;
+        top: 0;
+        left: 0;
+        background: white;
+    }
+    .main-scroll .inner .heads
+    {
+        height: calc(100vh - 160px);
+        background: ;
+    }
+
+    .video-img
+    {
+        display: flex;      
+    }
+    .video-img a 
+    {
+        position: relative;
+    }
+    .videocount
+    {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 50px;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    .videocount span 
+    {
+        font-size: 11px;
+    }
+
+</style>
+
+<div class="inner">
+    <h5>Channel playlists</h5>
+    <div class="videobtn">
+        <button>
+            <a href="#">
+                playlists
+            </a>
+        </button>
+    </div>
+    <div class="head">
+        <div class="video">Playlist</div>
+        <div class="visibility">Visibility</div>
+        <div class="restrictions">Last updated</div>
+        <div class="date">Video count</div>
+        <div class="views"></div>
+        <div class="comments"></div>
+        <div class="likes"></div>
+    </div>
+    <div class="heads">
+        {% for playlist in playlists %}
+        <div class="inners">
+            <div class="video">
+                <form action="#">
+                    <button>
+                        <div class="video-img">
+                            <a href="#">
+                                <div class="videocount">
+                                    <span>{{playlist.playlist_videos.all.count}}</span>
+                                </div>
+                                <img src="{{playlist.playlist_videos.first.image.url}}">
+                            </a>
+                        </div>
+                        <div class="video-detail">
+                            <h3>{{playlist.playlist_name}}</h3>
+                            <p>None</p>
+                        </div>
+                    </button>
+                </form>
+            </div>
+            <div class="visibility">{{playlist.playlist_visibility}}</div>
+            <div class="restrictions">{{playlist.playlist_created | date:"M d, Y"}}</div>
+            <div class="date">{{playlist.playlist_videos.all.count}}</div>
+            <div class="views"></div>
+            <div class="comments"></div>
+            <div class="likes">
+                <span></span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+
+<script>
+window.onload = function(){
+    var json2 = "{{json1}}";
+    var tempstr = JSON.parse(json2.replace(/&quot;/g,'"'));
+    var commentscount = document.querySelectorAll('.commentscount');
+    for(let i=0; i<commentscount.length; i++){
+        commentscount[i].innerHTML = tempstr['values'][i];
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+{% include 'hiddensidebar.html' %}
+
+<style>
+    .main .main-scroll .inner 
+    {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        grid-template-rows: auto;
+        grid-column-gap: 20px;
+        grid-row-gap: 25px;
+        padding: 20px;
+    }
+</style>
+
+<div class="main-scroll container">
+    <div class="inner">
+        
+            <video src="{{shorts.short_video.url}}" autoplay loop unmuted controls style="width: 50%;"></video>{{shorts.id}}
+
+            {% if id > 1 %}
+            <a href="{% url 'shorts' %}">Next</a>
+            {% else %}
+            <a href="{% url 'shorts' %}">Prev</a>
+            {% endif %}
+        
+    </div>
+</div>
+
+
+
+
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+
+        offset: 'bottom-in-view',
+
+        onBeforePageLoad: function(){
+
+        }
+        onAfterPageLoad: function(){
+            
+        }
+
+
+    })
+</script>
+
+{% endblock %}
